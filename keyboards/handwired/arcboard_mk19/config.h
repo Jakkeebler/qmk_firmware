@@ -9,18 +9,19 @@
 #define SPI_MATRIX_DIVISOR 16
 #define SPI_MODE 0
 #define SPI_DRIVER SPID1
-
-#define SPI_SCK_PIN GP10
+#define SPI_SCK_PIN  GP10
 #define SPI_MOSI_PIN GP11
 #define SPI_MISO_PIN GP12
 
+// 74HC595 config
 #define SPI_MATRIX_CHIP_SELECT_PIN_ROWS GP9
-#define SPI_MATRIX_CHIP_SELECT_PIN_COLS GP5
-
-// two shift registers for rows(74HC595 write pin high), two for cols(74HC589 receive pin state)
 #define MATRIX_COLS_SHIFT_REGISTER_COUNT 2
+
+// 74HC589 config
+#define SPI_MATRIX_CHIP_SELECT_PIN_COLS GP5
 #define MATRIX_ROWS_SHIFT_REGISTER_COUNT 2
 
+// custom matrix config
 #define ROWS_COUNT 10 // this can be replaced w. array_size or something?
 #define ROWS { \
     0b0000000000000001, \
@@ -58,6 +59,6 @@
     #define SERIAL_USART_TX_PIN GP0             // I could never get full-duplex working; this is the only config needed for half-duplex
     #define SERIAL_USART_RX_PIN GP1
     #define SERIAL_PIO_USE_PIO1                 // using PIO0 i get a lot of dropped packets; none using PIO1
-    #define SERIAL_USART_SPEED 800000
+    #define SERIAL_USART_SPEED 800000           // this improves scan rate by 200
     #define SPLIT_LAYER_STATE_ENABLE            // docs say use this if you are using split and rgb lighting per layer // this added 20 to scanrate???
 #endif

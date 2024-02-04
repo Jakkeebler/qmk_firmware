@@ -1,7 +1,8 @@
 # testing shift registers notes
 
 # real key layout testing
-
+                {"matrix": [0, 15], "x": 5, "y": 0},
+                {"matrix": [1, 15], "x": 5, "y": 0},
 
 
 # scratchpad for feb3 testing
