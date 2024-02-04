@@ -3,7 +3,7 @@
 # real key layout testing
                 {"matrix": [0, 15], "x": 5, "y": 0},
                 {"matrix": [1, 15], "x": 5, "y": 0},
-
+, "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"
 
 # scratchpad for feb3 testing
 note: split not connected
