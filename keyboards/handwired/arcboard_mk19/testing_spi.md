@@ -1,9 +1,16 @@
+
 # testing shift registers notes
 
 # real key layout testing
-                {"matrix": [0, 15], "x": 5, "y": 0},
-                {"matrix": [1, 15], "x": 5, "y": 0},
-, "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"
+rows are being applied in reverse order....
+thumbs are row0
+but rows in keywell are in reverse order...
+-fkeys are row5, keywell3 is row1
+
+and the split is not being applied properly...
+- row0 is tab-qwerty
+- 
+
 
 # scratchpad for feb3 testing
 note: split not connected
