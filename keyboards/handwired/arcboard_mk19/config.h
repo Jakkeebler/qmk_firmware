@@ -54,6 +54,7 @@
 // Split settings
 #if defined(SPLIT_KEYBOARD)
     #define SPLIT_HAND_PIN GP2                  // validated this works!
+    // #define SPLIT_HAND_PIN_LOW_IS_LEFT
     #define SERIAL_USART_FULL_DUPLEX
     #define SERIAL_USART_PIN_SWAP
     #define SERIAL_USART_TX_PIN GP0             // I could never get full-duplex working; this is the only config needed for half-duplex

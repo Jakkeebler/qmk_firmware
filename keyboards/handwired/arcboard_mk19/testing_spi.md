@@ -9,7 +9,16 @@ but rows in keywell are in reverse order...
 
 and the split is not being applied properly...
 - row0 is tab-qwerty
-- 
+
+
+interesting.  so cyboard hardware looks ok, but the application of the keymap is all over the place.
+pin-handedness = right
+- pcb-row0 = thumbs   = tab/qwerty  (keymap row6, left)
+- pcb-row1 = f-keys   = nm,.        (keymap row11, right)
+- pcb-row2 = num-keys = zxcv        (keymap row10, left)
+- pcb-row3 = keywell1 = hjkl        (keymap row9, right)
+- pcb-row4 = keywell2 = asdf        (keymap row8, left)
+- pcb-row5 = keywell3 = yuiop       (keymap row7, right)
 
 
 # scratchpad for feb3 testing

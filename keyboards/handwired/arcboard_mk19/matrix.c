@@ -51,9 +51,9 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         spi_stop();
 
         temp_col_state = temp_col_receive[0] | (temp_col_receive[1] << 8);
-        if (temp_col_state != 0) {
-            printf("row/row_val/col: [ %u / %u / %u ] \n", row, row_values[row], temp_col_state);
-        }
+        // if (temp_col_state != 0) {
+        //     printf("row/row_val/col: [ %u / %u / %u ] \n", row, row_values[row], temp_col_state);
+        // }
         temp_matrix[row] = temp_col_state;
     }
     bool matrix_has_changed = memcmp(current_matrix, temp_matrix, sizeof(temp_matrix)) != 0;
