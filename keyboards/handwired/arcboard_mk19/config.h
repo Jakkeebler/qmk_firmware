@@ -63,3 +63,8 @@
     #define SERIAL_USART_SPEED 800000           // this improves scan rate by 200
     #define SPLIT_LAYER_STATE_ENABLE            // docs say use this if you are using split and rgb lighting per layer // this added 20 to scanrate???
 #endif
+
+#if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
+    #define RGB_MATRIX_DEFAULT_HUE 5
+    #define RGB_MATRIX_DEFAULT_SAT 5
+#endif
