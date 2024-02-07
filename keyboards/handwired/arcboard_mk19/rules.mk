@@ -6,3 +6,15 @@ SERIAL_DRIVER = vendor
 CUSTOM_MATRIX = lite
 QUANTUM_LIB_SRC += spi_master.c
 SRC += matrix.c
+
+# LED settings
+RGB_MATRIX_LEDMAPS_ENABLED = yes 	# turn on per-key colours
+
+# enables the bool functionality
+DRAGSCROLL_ENABLE		= no
+
+# Encoder
+ENCODER_MAP_ENABLE = no
+
+# pointing
+POINTING_DEVICE_ENABLE = no

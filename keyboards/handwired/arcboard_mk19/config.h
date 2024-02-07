@@ -22,7 +22,7 @@
 #define MATRIX_ROWS_SHIFT_REGISTER_COUNT 2
 
 // custom matrix config
-#define ROWS_COUNT 10 // this can be replaced w. array_size or something?
+#define ROWS_COUNT 12 // this can be replaced w. array_size or something?
 #define ROWS { \
     0b0000000000000001, \
     0b0000000000000010, \
@@ -34,8 +34,10 @@
     0b0000000010000000, \
     0b0000000100000000, \
     0b0000001000000000, \
+    0b0000010000000000, \
+    0b0000100000000000, \
 }
- 
+
     // 0b0000010000000000, 
     // 0b0000100000000000, 
     // 0b0001000000000000, 
@@ -64,7 +66,42 @@
     #define SPLIT_LAYER_STATE_ENABLE            // docs say use this if you are using split and rgb lighting per layer // this added 20 to scanrate???
 #endif
 
+#if defined(POINTING_DEVICE_ENABLE)
+    #if defined(POINTING_DEBUG_ENABLE)
+        #define POINTING_DEVICE_DEBUG // enables some handy debug output; pair with 'debug_mouse=true' in your keyboard_post_init_user // also, should wrap debug up in something maybe
+    #endif
+    #define MOUSE_EXTENDED_REPORT // do we need this?
+    #define POINTING_DEVICE_TASK_THROTTLE_MS 10 // this ensures that the trackball sensor polling happens only every 10ms
+    #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
+    #define POINTING_DEVICE_COMBINED
+    #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
+#endif
+
+// encoder direction change fix
+#define ENCODER_DEFAULT_POS 3
+
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #define RGB_MATRIX_DEFAULT_HUE 5
     #define RGB_MATRIX_DEFAULT_SAT 5
+
+    // putting these in temporarily
+    #define RGB_TOT_IND_L 28 // 2x falcon + 11 = 35
+    // I got better scan rate performance by avoiding led_min/led_max and flags.
+    #define RGB_KEYS_L_MIN 0 // (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)
+    #define RGB_KEYS_L_MAX 39
+    #define RGB_FAL1_MIN 29
+    #define RGB_FAL1_MAX 40
+    #define RGB_FAL2_MIN 41
+    #define RGB_FAL2_MAX 52
+    #define RGB_IND_L_MIN 53
+    #define RGB_IND_L_MAX 63
+
+    #define RGB_KEYS_R_MIN 40
+    #define RGB_KEYS_R_MAX 79
+    #define RGB_FAL3_MIN 93
+    #define RGB_FAL3_MAX 104
+    #define RGB_FAL4_MIN 105
+    #define RGB_FAL4_MAX 116
+    #define RGB_IND_R_MIN 117
+    #define RGB_IND_R_MAX 127
 #endif
