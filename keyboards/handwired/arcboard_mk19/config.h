@@ -88,7 +88,7 @@
     #define RGB_TOT_IND_L 28 // 2x falcon + 11 = 35
     // I got better scan rate performance by avoiding led_min/led_max and flags.
     #define RGB_KEYS_L_MIN 0 // (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)
-    #define RGB_KEYS_L_MAX 39
+    #define RGB_KEYS_L_MAX 37
     #define RGB_FAL1_MIN 29
     #define RGB_FAL1_MAX 40
     #define RGB_FAL2_MIN 41
@@ -96,8 +96,8 @@
     #define RGB_IND_L_MIN 53
     #define RGB_IND_L_MAX 63
 
-    #define RGB_KEYS_R_MIN 40
-    #define RGB_KEYS_R_MAX 79
+    #define RGB_KEYS_R_MIN 38
+    #define RGB_KEYS_R_MAX 75
     #define RGB_FAL3_MIN 93
     #define RGB_FAL3_MAX 104
     #define RGB_FAL4_MIN 105

@@ -1,4 +1,4 @@
-# understanding cyboard's rgb logic
+# day1 - understanding cyboard's rgb logic
 So i'm used to DI -> DO -> DI etc, and working across in rows.
 
 But Cyboard is physically arranged in columns, so of course it'd be different.
@@ -88,3 +88,15 @@ but ours is not.  so this code will not work, and this explains why things are a
 So what needs to change?
 
 Maybe this is where the rgb matrix index fits in...  it'll be fine if we specify where in the matrix the led is, in our sequential order?
+
+# day2 - figuring out how info.json/rgb_matrix/layout is supposed to work
+so, if the ledmap is just 0,1,2,3 execution, i.e. a sequential led execution...
+info.json should also be laid out in the sequence of the ws2818 chain.
+
+GOT IT.
+
+## summary
+- there is led_start and led_end in config.h; for the custom functions
+- info.json is now effectively doing g_led_config stuff
+- the LEDMAP object needed to be re-oriented as well
+

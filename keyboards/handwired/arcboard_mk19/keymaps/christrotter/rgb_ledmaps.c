@@ -16,17 +16,17 @@ void set_rgb_ledmap(uint8_t first_led, uint8_t last_led, int val, int layer) {
     for (int i = first_led; i <= last_led; i++) {
         // RGB_TOT_IND_L is 'how many right indicator leds between left and right key ranges, in the context of the led-flag section of g_led_config'
         // cuz, ledmaps doesn't think there are any indicator leds, it believes you only have l.key-range + r.key-range = total addressable leds
-        if (!(is_keyboard_left())) {
-            i = i - RGB_TOT_IND_L;
-        }
+        // if (!(is_keyboard_left())) {
+        //     i = i - RGB_TOT_IND_L;
+        // }
         HSV hsv = {
             .h = (*l)[i][0],
             .s = (*l)[i][1],
             .v = val,
         };
-        if (!(is_keyboard_left())) {
-            i = i + RGB_TOT_IND_L;
-        } // revert i to fit the 'in reality' led sequence
+        // if (!(is_keyboard_left())) {
+        //     i = i + RGB_TOT_IND_L;
+        // } // revert i to fit the 'in reality' led sequence
         if (hsv.h || hsv.s) {
             RGB rgb = hsv_to_rgb(hsv);
             rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
