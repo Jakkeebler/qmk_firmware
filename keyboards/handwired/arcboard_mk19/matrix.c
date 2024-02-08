@@ -17,6 +17,10 @@ void matrix_init_custom(void) {
     writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN_COLS);
     setPinOutput(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
     writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
+    if (!(is_keyboard_left())) {
+        setPinOutput(PMW33XX_CS_PIN);
+        writePinHigh(PMW33XX_CS_PIN);
+    }
     spi_init();
 }
 

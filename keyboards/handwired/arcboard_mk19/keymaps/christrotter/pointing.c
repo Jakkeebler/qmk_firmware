@@ -16,7 +16,6 @@ void pointing_device_init_kb(void) {
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    printf("mouse_report: %d %d %d %d \n", mouse_report.h, mouse_report.v, mouse_report.x, mouse_report.y);
     if (set_scrolling) {
         pointing_device_set_cpi(DRAGSCROLL_CPI);
         mouse_report.h -= mouse_report.x; // -= to invert x-axis
