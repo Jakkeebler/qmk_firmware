@@ -55,11 +55,10 @@
 
 // Split settings
 #if defined(SPLIT_KEYBOARD)
-    #define SPLIT_HAND_PIN GP2                  // validated this works!
-    // #define SPLIT_HAND_PIN_LOW_IS_LEFT
+    #define SPLIT_HAND_PIN GP2
     #define SERIAL_USART_FULL_DUPLEX
     #define SERIAL_USART_PIN_SWAP
-    #define SERIAL_USART_TX_PIN GP0             // I could never get full-duplex working; this is the only config needed for half-duplex
+    #define SERIAL_USART_TX_PIN GP0
     #define SERIAL_USART_RX_PIN GP1
     #define SERIAL_PIO_USE_PIO1                 // using PIO0 i get a lot of dropped packets; none using PIO1
     #define SERIAL_USART_SPEED 800000           // this improves scan rate by 200
@@ -67,13 +66,11 @@
 #endif
 
 #if defined(POINTING_DEVICE_ENABLE)
-    #if defined(POINTING_DEBUG_ENABLE)
-        #define POINTING_DEVICE_DEBUG // enables some handy debug output; pair with 'debug_mouse=true' in your keyboard_post_init_user // also, should wrap debug up in something maybe
-    #endif
-    #define MOUSE_EXTENDED_REPORT // do we need this?
+    // #define POINTING_DEVICE_DEBUG
     #define POINTING_DEVICE_TASK_THROTTLE_MS 10 // this ensures that the trackball sensor polling happens only every 10ms
+    #define MOUSE_EXTENDED_REPORT
     #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
-    #define POINTING_DEVICE_COMBINED
+    #define POINTING_DEVICE_RIGHT
     #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
 #endif
 

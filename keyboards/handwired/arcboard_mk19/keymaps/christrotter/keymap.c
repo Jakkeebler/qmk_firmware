@@ -10,15 +10,23 @@
     void keyboard_post_init_user(void) {
         // Customise these values to desired behaviour
         debug_enable=true;
-        debug_matrix=true;
-        debug_keyboard=true;
+        // debug_matrix=true;
+        // debug_keyboard=true;
         // debug_mouse=true;
     }
+#endif
+
+#if defined(POINTING_DEVICE_ENABLE)
+    #include "pointing.c"
 #endif
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #include "rgb_ledmaps.h"
 #endif
+
+__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
+void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
 
 /*
 row0 = 8 keys in thumb row, but two are disconnected/useless, just leds in chain
@@ -51,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TILD,     KC_1,       KC_2,      KC_3,      KC_4,      KC_5,      KC_P,      KC_P,                                        KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      KC_EQUAL,  KC_P,      KC_P,
         KC_TAB,      KC_Q,       LT(0,KC_W),KC_E,      LT(0,KC_R),LT(0,KC_T),KC_1,      KC_2,      KC_3,      KC_4,                  KC_Y,      KC_U,      LT(0,KC_I),KC_O,      KC_P,      KC_MINUS,  KC_1,      KC_2,      KC_3,      KC_4,
         KC_LSFT,     LT(0,KC_A), KC_S,      KC_D,      KC_F,      KC_G,      KC_5,      KC_6,      KC_7,      KC_8,                  KC_H,      KC_J,      KC_K,      KC_L,      KC_QUOT,   KC_SCLN,   KC_5,      KC_6,      KC_7,      KC_8,
-        KC_D,        LT(0,KC_Z), LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),                                                        LT(0,KC_N),KC_M,      KC_COMM,   KC_DOT,    KC_SLASH,  KC_1,
+        DRAG_SCROLL,        LT(0,KC_Z), LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),                                                        LT(0,KC_N),KC_M,      KC_COMM,   KC_DOT,    KC_SLASH,  KC_1,
         KC_BSPC,     MO(_NAV),   KC_NO,     KC_DEL,    KC_ESC,    KC_LSFT,   KC_TAB,    KC_NO,                                       KC_SPACE,  KC_ENTER,  KC_NO,     MO(_SYMBOLS), MO(_NAV), KC_LSFT,   KC_M,      KC_NO
     ),
     [_MOUSE] = LAYOUT(
@@ -123,3 +131,189 @@ const ledmap ledmaps[] = {
     
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!(process_record_keymap(keycode, record)
+        // #if defined(POINTING_DEVICE_ENABLE)
+        //     && process_record_pointing(keycode, record)
+        // #endif
+          && true)) {
+        return false;
+    }
+    #if defined(DRAGSCROLL_ENABLE)
+        if (keycode == DRAG_SCROLL && record->event.pressed) {
+            set_scrolling = !set_scrolling;
+            return false;
+        }
+    #endif
+    // now we check for specific keycodes...
+    // note there is a macos bug that means any unicode ending in 0 doesn't register.
+    #if defined(CUSTOM_KEYCODES)
+        switch (keycode) {
+                case LT(0,KC_YAY):
+                if (record->event.pressed) {
+                    SEND_STRING("\\o/");
+                    return false;
+                }
+                return true;
+                case LT(0,KC_TILD):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_TILD)); // hold for command+letter
+                    return false;
+                }
+                return true;             // Return true for normal processing of tap keycode
+                case LT(0,KC_1):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_1)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_2):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_2)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_3):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_3)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_4):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_4)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_5):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_5)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_6):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_6)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_7):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_7)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_8):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_8)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_9):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_9)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                // a bunch of these are commented out cuz homerow mods in play
+//                case LT(0,KC_S):
+//                if (!record->tap.count && record->event.pressed) {
+//                    tap_code16(LCMD(KC_S)); // hold for command+letter
+//                    return false;
+//                }
+//                return true;             // Return true for normal processing of tap keycode
+                case LT(0,KC_Z):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_Z)); // hold for command+letter
+                    return false;
+                }
+                return true;             // Return true for normal processing of tap keycode
+                case LT(0,KC_X):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_X)); // hold for command+letter
+                    return false;
+                }
+                return true;             // Return true for normal processing of tap keycode
+                case LT(0,KC_C):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_C)); // hold for command+letter
+                    return false;
+                }
+                return true;             // Return true for normal processing of tap keycode
+                case LT(0,KC_V):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_V)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_B):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_B)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_A):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_A)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_R):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_R)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_W):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_W)); // hold for command+letter
+                    return false;
+                }
+                return true;
+//                case LT(0,KC_K):
+//                if (!record->tap.count && record->event.pressed) {
+//                    tap_code16(LCMD(KC_K)); // hold for command+letter
+//                    return false;
+//                }
+//                return true;
+//                case LT(0,KC_L):
+//                if (!record->tap.count && record->event.pressed) {
+//                    tap_code16(LCMD(KC_L)); // hold for command+letter
+//                    return false;
+//                }
+//                return true;
+                case LT(0,KC_T):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_T)); // hold for command+letter
+                    return false;
+                }
+                return true;
+//                case LT(0,KC_F):
+//                if (!record->tap.count && record->event.pressed) {
+//                    tap_code16(LCMD(KC_F)); // hold for command+letter
+//                    return false;
+//                }
+//                return true;
+                case LT(0,KC_N):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(LSFT(KC_N))); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_I):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(LCMD(KC_I)); // hold for command+letter
+                    return false;
+                }
+                return true;
+                case LT(0,KC_MPLY):
+                if (!record->tap.count && record->event.pressed) {
+                    tap_code16(KC_MNXT); // hold for command+letter
+                    return false;
+                }
+                return true;
+    }
+    #endif // end CUSTOM_KEYCODES (for troubleshooting)
+    return true;
+}

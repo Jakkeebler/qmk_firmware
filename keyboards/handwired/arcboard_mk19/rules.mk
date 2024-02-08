@@ -10,11 +10,9 @@ SRC += matrix.c
 # LED settings
 RGB_MATRIX_LEDMAPS_ENABLED = yes 	# turn on per-key colours
 
-# enables the bool functionality
-DRAGSCROLL_ENABLE		= no
-
 # Encoder
 ENCODER_MAP_ENABLE = no
 
 # pointing
-POINTING_DEVICE_ENABLE = no
+POINTING_DEVICE_ENABLE = yes
+DRAGSCROLL_ENABLE = yes
