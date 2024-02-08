@@ -100,3 +100,18 @@ GOT IT.
 - info.json is now effectively doing g_led_config stuff
 - the LEDMAP object needed to be re-oriented as well
 
+the rows are all reversed.
+
+i tried reversing one col in info.json - no change.
+
+reversed the row order in the first part of the ledmap...reversed!
+that did it!!
+
+ok, last two led items.
+- layers
+- thumbcluster kc_no
+
+Both working.
+
+need to really dig into how this is all set up, but, it's working!  \o/
+
