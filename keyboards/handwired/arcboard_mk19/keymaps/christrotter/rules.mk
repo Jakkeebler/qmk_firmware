@@ -4,6 +4,6 @@ ifeq ($(strip $(RGB_MATRIX_LEDMAPS_ENABLED)), yes)
 	OPT_DEFS += -DRGB_MATRIX_LEDMAPS_ENABLED
 endif
 
-ifeq ($(strip $(QUANTUM_PAINTER_ENABLED)), yes)
+ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
 	SRC += keymaps/christrotter/ui.c
 endif

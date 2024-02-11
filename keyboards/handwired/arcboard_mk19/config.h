@@ -101,3 +101,15 @@
     #define RGB_IND_R_MIN 117
     #define RGB_IND_R_MAX 127
 #endif
+
+#if defined(QUANTUM_PAINTER_ENABLE)
+    #define QUANTUM_PAINTER_TASK_THROTTLE 50 // trying to reduce the scan rate impact
+    #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // this is super important - you get a white screen after 30s otherwise
+    // #define QUANTUM_PAINTER_DEBUG
+    #define DISPLAY_SPI_DIVISOR 12
+    #define DISPLAY_SPI_MODE 0
+    #define DISPLAY_DC_PIN GP14
+    #define DISPLAY_CS_PIN GP16
+    #define DISPLAY_RST_PIN GP17
+    #define DISPLAY_LED_PIN GP15
+#endif

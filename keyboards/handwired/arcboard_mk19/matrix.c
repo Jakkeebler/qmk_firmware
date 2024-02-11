@@ -31,12 +31,6 @@ static inline void write_to_rows(uint16_t value) {
     spi_stop();
 }
 
-// removed this, not sure what it was getting us - matrix still works
-// no perf improvement
-// static inline void set_row_high(uint16_t row) {
-//     write_to_rows(row_values[row]);
-// }
-
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // TODO replace ROWS_COUNT with a sizeof or array_size or something
     static matrix_row_t temp_matrix[ROWS_COUNT] = {0};
