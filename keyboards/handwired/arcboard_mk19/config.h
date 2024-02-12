@@ -79,12 +79,37 @@
 #if defined(RGB_MATRIX_ENABLE) || defined(RGB_MATRIX_LEDMAPS_ENABLED)
     #define RGB_MATRIX_DEFAULT_HUE 5
     #define RGB_MATRIX_DEFAULT_SAT 5
+    // keys/thumbs count = 38
+    // big slats count = 37 // flag: 1
+    // sm. slats count = 11 // flag: 1
+    // indicator count = 5 // flag: 2
+    // screen count = ? ?? // flag: 8
 
-    // putting these in temporarily
-    #define RGB_TOT_IND_L 28 // 2x falcon + 11 = 35
+    #define RGB_TOT_IND_L 53
+    #define RGB_TOT_IND_R 53
+
+    #define RGB_KEYS_L_START 0
+    #define RGB_KEYS_L_END 37
+    #define RGB_BIG_SLATS_L_START 38
+    #define RGB_BIG_SLATS_L_END 74
+    #define RGB_INDICATOR_L_START 75
+    #define RGB_INDICATOR_L_END 79
+    #define RGB_SM_SLATS_L_START 80
+    #define RGB_SM_SLATS_L_END 90
+
+    #define RGB_KEYS_R_START 91
+    #define RGB_KEYS_R_END 128
+    #define RGB_BIG_SLATS_R_START 129
+    #define RGB_BIG_SLATS_R_END 165
+    #define RGB_INDICATOR_R_START 166
+    #define RGB_INDICATOR_R_END 170
+    #define RGB_SM_SLATS_R_START 171
+    #define RGB_SM_SLATS_R_END 181
+    // #define RGB_SCREEN_START 
+    // #define RGB_SCREEN_END 
+
     // I got better scan rate performance by avoiding led_min/led_max and flags.
-    #define RGB_KEYS_L_MIN 0 // (actual keys, 4x6 + 5 + 1f + 5dpad + 1f = 36)
-    #define RGB_KEYS_L_MAX 37
+
     #define RGB_FAL1_MIN 29
     #define RGB_FAL1_MAX 40
     #define RGB_FAL2_MIN 41
