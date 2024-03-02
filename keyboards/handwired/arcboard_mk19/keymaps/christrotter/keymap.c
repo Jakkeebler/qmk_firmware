@@ -10,7 +10,7 @@
     void keyboard_post_init_user(void) {
         // Customise these values to desired behaviour
         debug_enable=true;
-        // debug_matrix=true;
+        debug_matrix=true;
         debug_keyboard=true;
         // debug_mouse=true;
     }
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
 // the indicator LEDs are mapped using the flags and for loop.
-// Right thumb: KC_MULTILNE, OSM(MOD_LSFT), MO(_SYMBOLS), KC_ENTER, KC_SPACE, MAGIPLAY,
+// todo: is there 'skip' logic for the ___n___ items?
 const ledmap ledmaps[] = {
 //     [_QWERTY]   = LEDMAP(
 
@@ -143,7 +143,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     #endif
     // now we check for specific keycodes...
-    // note there is a macos bug that means any unicode ending in 0 doesn't register.
     #if defined(CUSTOM_KEYCODES)
         switch (keycode) {
                 case LT(0,KC_YAY):
@@ -157,7 +156,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code16(LCMD(KC_TILD)); // hold for command+letter
                     return false;
                 }
-                return true;             // Return true for normal processing of tap keycode
+                return true;
                 case LT(0,KC_1):
                 if (!record->tap.count && record->event.pressed) {
                     tap_code16(LCMD(KC_1)); // hold for command+letter
@@ -212,31 +211,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
                 return true;
-                // a bunch of these are commented out cuz homerow mods in play
-//                case LT(0,KC_S):
-//                if (!record->tap.count && record->event.pressed) {
-//                    tap_code16(LCMD(KC_S)); // hold for command+letter
-//                    return false;
-//                }
-//                return true;             // Return true for normal processing of tap keycode
                 case LT(0,KC_Z):
                 if (!record->tap.count && record->event.pressed) {
                     tap_code16(LCMD(KC_Z)); // hold for command+letter
                     return false;
                 }
-                return true;             // Return true for normal processing of tap keycode
+                return true;
                 case LT(0,KC_X):
                 if (!record->tap.count && record->event.pressed) {
                     tap_code16(LCMD(KC_X)); // hold for command+letter
                     return false;
                 }
-                return true;             // Return true for normal processing of tap keycode
+                return true;
                 case LT(0,KC_C):
                 if (!record->tap.count && record->event.pressed) {
                     tap_code16(LCMD(KC_C)); // hold for command+letter
                     return false;
                 }
-                return true;             // Return true for normal processing of tap keycode
+                return true;
                 case LT(0,KC_V):
                 if (!record->tap.count && record->event.pressed) {
                     tap_code16(LCMD(KC_V)); // hold for command+letter
@@ -267,30 +259,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
                 return true;
-//                case LT(0,KC_K):
-//                if (!record->tap.count && record->event.pressed) {
-//                    tap_code16(LCMD(KC_K)); // hold for command+letter
-//                    return false;
-//                }
-//                return true;
-//                case LT(0,KC_L):
-//                if (!record->tap.count && record->event.pressed) {
-//                    tap_code16(LCMD(KC_L)); // hold for command+letter
-//                    return false;
-//                }
-//                return true;
                 case LT(0,KC_T):
                 if (!record->tap.count && record->event.pressed) {
                     tap_code16(LCMD(KC_T)); // hold for command+letter
                     return false;
                 }
                 return true;
-//                case LT(0,KC_F):
-//                if (!record->tap.count && record->event.pressed) {
-//                    tap_code16(LCMD(KC_F)); // hold for command+letter
-//                    return false;
-//                }
-//                return true;
                 case LT(0,KC_N):
                 if (!record->tap.count && record->event.pressed) {
                     tap_code16(LCMD(LSFT(KC_N))); // hold for command+letter
