@@ -10,10 +10,11 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "encoder": false,
+        "encoder": true,
         "nkro": true,
         "rgb_matrix": true,
-        "quantum_painter": true
+        "quantum_painter": true,
+        "audio": true
     },
     "split": {
         "enabled": true,
@@ -30,7 +31,7 @@
         "cols": ["NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"]
       },
     "encoder": {
-        "enabled": false,
+        "enabled": true,
         "rotary": [
             { "pin_a": "GP18", "pin_b": "GP19", "resolution": 4 },
             { "pin_a": "GP20", "pin_b": "GP21", "resolution": 4 }

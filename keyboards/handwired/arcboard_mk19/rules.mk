@@ -19,3 +19,5 @@ DRAGSCROLL_ENABLE = yes
 
 # qp
 QUANTUM_PAINTER_ENABLE = yes
+
+AUDIO_DRIVER = pwm_hardware

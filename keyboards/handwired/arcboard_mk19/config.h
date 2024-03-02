@@ -83,13 +83,29 @@
     // big slats count = 37 // flag: 1
     // sm. slats count = 11 // flag: 1
     // indicator count = 5 // flag: 2
+    // macro count = 8 // flag: 4
+    // falcon1 count = 30?
+    // falcon2 count = 30?
     // screen count = ? ?? // flag: 8
 
+    // Total counts are important for the left/right 'set_rgb_range' logic, cuz life is hard.
     #define RGB_TOT_IND_L 53
     #define RGB_TOT_IND_R 53
 
     #define RGB_KEYS_L_START 0
     #define RGB_KEYS_L_END 37
+    /*
+    #define RGB_MACROPAD_L_START 0
+    #define RGB_MACROPAD_L_END 0
+    #define RGB_UF1_INNER_L_START 0
+    #define RGB_UF1_INNER_L_END 0
+    #define RGB_UF1_OUTER_L_START 0
+    #define RGB_UF1_OUTER_L_END 0
+    #define RGB_UF2_INNER_L_START 0
+    #define RGB_UF2_INNER_L_END 0
+    #define RGB_UF2_OUTER_L_START 0
+    #define RGB_UF2_OUTER_L_END 0
+    */
     #define RGB_BIG_SLATS_L_START 38
     #define RGB_BIG_SLATS_L_END 74
     #define RGB_INDICATOR_L_START 75
@@ -99,32 +115,32 @@
 
     #define RGB_KEYS_R_START 91
     #define RGB_KEYS_R_END 128
+    /*
+    #define RGB_MACROPAD_R_START 0
+    #define RGB_MACROPAD_R_END 0
+    #define RGB_UF1_INNER_R_START 0
+    #define RGB_UF1_INNER_R_END 0
+    #define RGB_UF1_OUTER_R_START 0
+    #define RGB_UF1_OUTER_R_END 0
+    #define RGB_UF2_INNER_R_START 0
+    #define RGB_UF2_INNER_R_END 0
+    #define RGB_UF2_OUTER_R_START 0
+    #define RGB_UF2_OUTER_R_END 0
+    */
     #define RGB_BIG_SLATS_R_START 129
     #define RGB_BIG_SLATS_R_END 165
     #define RGB_INDICATOR_R_START 166
     #define RGB_INDICATOR_R_END 170
     #define RGB_SM_SLATS_R_START 171
     #define RGB_SM_SLATS_R_END 181
-    // #define RGB_SCREEN_START 
-    // #define RGB_SCREEN_END 
+    /*
+    #define RGB_SCREEN_GLOW_START 0
+    #define RGB_SCREEN_GLOW_END 0
+    #define RGB_SCREEN_IND_START 0
+    #define RGB_SCREEN_IND_END 0
+    */
 
     // I got better scan rate performance by avoiding led_min/led_max and flags.
-
-    #define RGB_FAL1_MIN 29
-    #define RGB_FAL1_MAX 40
-    #define RGB_FAL2_MIN 41
-    #define RGB_FAL2_MAX 52
-    #define RGB_IND_L_MIN 53
-    #define RGB_IND_L_MAX 63
-
-    #define RGB_KEYS_R_MIN 38
-    #define RGB_KEYS_R_MAX 75
-    #define RGB_FAL3_MIN 93
-    #define RGB_FAL3_MAX 104
-    #define RGB_FAL4_MIN 105
-    #define RGB_FAL4_MAX 116
-    #define RGB_IND_R_MIN 117
-    #define RGB_IND_R_MAX 127
 #endif
 
 #if defined(QUANTUM_PAINTER_ENABLE)
@@ -138,3 +154,7 @@
     #define DISPLAY_RST_PIN GP17
     #define DISPLAY_LED_PIN GP15
 #endif
+
+#define AUDIO_PIN GP22
+#define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_A
+#define AUDIO_PWM_DRIVER PWMD3
