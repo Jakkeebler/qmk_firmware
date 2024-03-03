@@ -38,6 +38,10 @@
         ]
     },
     "AUTO_MOUSE_DEFAULT_LAYER": "_MOUSE",
+    "ws2812": {
+        "pin": "GP28",
+        "driver": "vendor"
+    },
     "rgblight": {
         "led_count": 182
     },
@@ -229,10 +233,6 @@
              {"flags": 1, "x": 5, "y": 0},
              {"flags": 1, "x": 5, "y": 0}
         ]
-    },
-    "ws2812": {
-        "pin": "GP28",
-        "driver": "vendor"
     },
     "processor": "RP2040",
     "url": "",
