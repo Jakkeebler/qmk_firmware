@@ -153,9 +153,11 @@
     #define DISPLAY_SPI_DIVISOR 12
     #define DISPLAY_SPI_MODE 0
     #define DISPLAY_DC_PIN GP14
-    #define DISPLAY_CS_PIN GP16
     #define DISPLAY_RST_PIN GP17
     #define DISPLAY_LED_PIN GP15
+    #define DISPLAY1_CS_PIN GP16
+    #define DISPLAY2_CS_PIN GP22
+    #define DISPLAY3_CS_PIN GP3
 #endif
 
 #define AUDIO_PIN GP6

@@ -18,13 +18,13 @@ void matrix_init_custom(void) {
     writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN_COLS);
     setPinOutput(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
     writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
-    setPinOutput(latch_pin);
-    writePinLow(latch_pin);
     if (!(is_keyboard_left())) {
         setPinOutput(PMW33XX_CS_PIN);
         writePinHigh(PMW33XX_CS_PIN);
     }
     spi_init();
+    setPinOutput(latch_pin);
+    writePinLow(latch_pin);
 }
 
 static inline void write_to_rows(uint16_t value) {
@@ -33,6 +33,21 @@ static inline void write_to_rows(uint16_t value) {
     spi_start(SPI_MATRIX_CHIP_SELECT_PIN_ROWS, true, SPI_MODE, SPI_MATRIX_DIVISOR);
     spi_transmit(message, 2);
     spi_stop();
+}
+
+/**
+ * @brief Helper function to wait until a pin  has reached the wanted target
+ * state. This only works for Push-Pull pins with enabled input stage.
+ */
+static void __time_critical_func(write_and_wait_for_pin)(pin_t pin, uint8_t target_state) {
+    writePin(pin, target_state);
+    rtcnt_t start = chSysGetRealtimeCounterX();
+    rtcnt_t end   = start + MS2RTC(REALTIME_COUNTER_CLOCK, 20);
+    while (chSysIsCounterWithinX(chSysGetRealtimeCounterX(), start, end)) {
+        if (readPin(pin) == target_state) {
+            return;
+        }
+    }
 }
 
 /*
@@ -64,11 +79,11 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         // set_row_high(row);
         write_to_rows(row_values[row]);
 
-        // read the cols shift register contents
-        
-        setPinOutput(latch_pin);
-        writePinHigh(latch_pin);
-        writePinLow(latch_pin);
+        // get the shift registers to move data from latch to register
+        write_and_wait_for_pin(latch_pin, 1);
+        write_and_wait_for_pin(latch_pin, 0);
+
+        // read the cols shift register contents over serial
         spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, true, SPI_MODE, SPI_MATRIX_DIVISOR);
         spi_receive((uint8_t*)temp_col_receive, MATRIX_COLS_SHIFT_REGISTER_COUNT);
         spi_stop();
