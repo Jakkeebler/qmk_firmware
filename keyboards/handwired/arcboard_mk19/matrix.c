@@ -18,32 +18,40 @@ void matrix_init_custom(void) {
     writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN_COLS);
     setPinOutput(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
     writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN_ROWS);
+    setPinOutput(latch_pin);
+    writePinLow(latch_pin);
     if (!(is_keyboard_left())) {
         setPinOutput(PMW33XX_CS_PIN);
         writePinHigh(PMW33XX_CS_PIN);
     }
     spi_init();
-    setPinOutput(latch_pin);
-    writePinLow(latch_pin);
 }
 
 static inline void write_to_rows(uint16_t value) {
     uint8_t message[2] = {(uint8_t)(value & 0xFF), (value >> 8) & 0xFF}; // cut 0xABCD into {0xAB, 0xCD}
+
     spi_start(SPI_MATRIX_CHIP_SELECT_PIN_ROWS, true, SPI_MODE, SPI_MATRIX_DIVISOR);
     spi_transmit(message, 2);
     spi_stop();
 }
 
-static void __time_critical_func(write_and_wait_for_pin)(pin_t pin, uint8_t target_state) {
-    writePin(pin, target_state);
-    rtcnt_t start = chSysGetRealtimeCounterX();
-    rtcnt_t end   = start + MS2RTC(REALTIME_COUNTER_CLOCK, 20);
-    while (chSysIsCounterWithinX(chSysGetRealtimeCounterX(), start, end)) {
-        if (readPin(pin) == target_state) {
-            return;
-        }
-    }
-}
+/*
+    what are we trying to accomplish in the scan?
+    for each row:
+    - set row high
+    - check all cols
+    - build the matrix object's "this row" entry
+
+    compare the matrix object to the last one
+
+    in order to check the cols, we need to get the 589 registers to transfer data from latch into register
+    - set row high i.e. this sets up our environment state
+    - set latch high; shift registers now transfer their data from latch to register
+    - set latch low; shift registers now ready to transfer data out serial line
+    - spi_start on the columns CS pin; spi_receive; spi_stop on cols CS pin
+    done.
+
+*/
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // TODO replace ROWS_COUNT with a sizeof or array_size or something
@@ -56,13 +64,14 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         // set_row_high(row);
         write_to_rows(row_values[row]);
 
+        // read the cols shift register contents
         
+        setPinOutput(latch_pin);
+        writePinHigh(latch_pin);
+        writePinLow(latch_pin);
         spi_start(SPI_MATRIX_CHIP_SELECT_PIN_COLS, true, SPI_MODE, SPI_MATRIX_DIVISOR);
-        write_and_wait_for_pin(latch_pin, 1);
         spi_receive((uint8_t*)temp_col_receive, MATRIX_COLS_SHIFT_REGISTER_COUNT);
-        write_and_wait_for_pin(latch_pin, 0);
         spi_stop();
-        
 
         temp_col_state = temp_col_receive[0] | (temp_col_receive[1] << 8);
         if (temp_col_state != 0) {
