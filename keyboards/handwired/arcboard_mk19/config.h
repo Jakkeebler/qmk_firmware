@@ -5,26 +5,43 @@
 
 #define DEBOUNCE 10
 
+// GPIO configuration
+#define SPI_SCK_PIN  GP10
+#define SPI_MOSI_PIN GP11
+#define SPI_MISO_PIN GP12
+#define SPI_MATRIX_LATCH_PIN GP4
+#define SPI_MATRIX_CHIP_SELECT_PIN_ROWS GP9
+#define SPI_MATRIX_CHIP_SELECT_PIN_COLS GP5
+#if defined(SPLIT_KEYBOARD)
+    #define SERIAL_USART_TX_PIN GP0
+    #define SERIAL_USART_RX_PIN GP1
+    #define SPLIT_HAND_PIN GP2
+#endif
+#if defined(POINTING_DEVICE_ENABLE)
+    #define PMW33XX_CS_PIN GP13
+#endif
+#if defined(QUANTUM_PAINTER_ENABLE)
+    // wat dis
+    #define DISPLAY_DC_PIN GP14
+    #define DISPLAY_RST_PIN GP17
+    #define DISPLAY_LED_PIN GP15
+    #define DISPLAY1_CS_PIN GP16
+    #define DISPLAY2_CS_PIN GP22
+    #define DISPLAY3_CS_PIN GP3
+#endif
+#ifdef AUDIO_ENABLE
+    #define AUDIO_PIN GP6
+#endif
+
+
 // SPI configuration
 #define SPI_MATRIX_DIVISOR 16
 #define SPI_MODE 0
 #define SPI_DRIVER SPID1
-#define SPI_SCK_PIN  GP10
-#define SPI_MOSI_PIN GP11
-#define SPI_MISO_PIN GP12
-
-// latch pin
-#define SPI_MATRIX_LATCH_PIN GP4
-
-// 74HC595 config
-#define SPI_MATRIX_CHIP_SELECT_PIN_ROWS GP9
-#define MATRIX_COLS_SHIFT_REGISTER_COUNT 2
-
-// 74HC589 config
-#define SPI_MATRIX_CHIP_SELECT_PIN_COLS GP5
-#define MATRIX_ROWS_SHIFT_REGISTER_COUNT 2
 
 // custom matrix config
+#define MATRIX_COLS_SHIFT_REGISTER_COUNT 2
+#define MATRIX_ROWS_SHIFT_REGISTER_COUNT 2
 #define ROWS_COUNT 12 // this can be replaced w. array_size or something?
 #define ROWS { \
     0b0000000000000001, \
@@ -58,11 +75,8 @@
 
 // Split settings
 #if defined(SPLIT_KEYBOARD)
-    #define SPLIT_HAND_PIN GP2
     #define SERIAL_USART_FULL_DUPLEX
     #define SERIAL_USART_PIN_SWAP
-    #define SERIAL_USART_TX_PIN GP0
-    #define SERIAL_USART_RX_PIN GP1
     #define SERIAL_PIO_USE_PIO1                 // using PIO0 i get a lot of dropped packets; none using PIO1
     #define SERIAL_USART_SPEED 800000           // this improves scan rate by 200
     #define SPLIT_LAYER_STATE_ENABLE            // docs say use this if you are using split and rgb lighting per layer // this added 20 to scanrate???
@@ -73,7 +87,6 @@
     #define MOUSE_EXTENDED_REPORT
     #define SPLIT_POINTING_ENABLE               // required for telling the master side about slave trackball state, i.e. if usb left, and tb right
     #define POINTING_DEVICE_RIGHT
-    #define PMW33XX_CS_PIN GP13                 // where the SS (CS) pin on the PMW module connects to the mcu
 #endif
 
 // encoder direction change fix
@@ -152,17 +165,10 @@
     // #define QUANTUM_PAINTER_DEBUG
     #define DISPLAY_SPI_DIVISOR 12
     #define DISPLAY_SPI_MODE 0
-    #define DISPLAY_DC_PIN GP14
-    #define DISPLAY_RST_PIN GP17
-    #define DISPLAY_LED_PIN GP15
-    #define DISPLAY1_CS_PIN GP16
-    #define DISPLAY2_CS_PIN GP22
-    #define DISPLAY3_CS_PIN GP3
 #endif
 
-#define AUDIO_PIN GP6
-#define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_A
-#define AUDIO_PWM_DRIVER PWMD3
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(STARTUP_SOUND)
+    #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_A
+    #define AUDIO_PWM_DRIVER PWMD3
+    #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
