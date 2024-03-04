@@ -24,7 +24,7 @@ const char *current_layer_name(void) {
 
 void init_ui(void) {
     font = qp_load_font_mem(font_futura40);
-    display = qp_gc9a01_make_spi_device(240, 240, DISPLAY1_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, DISPLAY_SPI_MODE);
+    display = qp_gc9a01_make_spi_device(240, 240, DISPLAY2_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, DISPLAY_SPI_MODE);
     if (!(is_keyboard_left())) {
         qp_init(display, QP_ROTATION_0);
         setPinOutput(DISPLAY_LED_PIN);
