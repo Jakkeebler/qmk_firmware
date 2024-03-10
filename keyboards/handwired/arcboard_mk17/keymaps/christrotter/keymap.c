@@ -19,6 +19,10 @@
 #include "arcboard_mk17.h"
 #include "keymap.h"
 
+#ifdef MACCEL_ENABLE
+    #include "maccel.h"
+#endif
+
 #if defined(ENCODER_MAP_ENABLE)
     #include "encoder_maps.c"
 #endif
