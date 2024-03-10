@@ -41,3 +41,10 @@
     #define RIGHT_PMW_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
     #define LEFT_PMW_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
 #endif
+
+#if defined(MACCEL_ENABLE)
+    #define MACCEL_TAKEOFF 1.5      // lower/higher value = curve takes off more smoothly/abruptly
+    #define MACCEL_GROWTH_RATE 0.5 // lower/higher value = curve reaches its upper limit slower/faster 
+    #define MACCEL_OFFSET 6       // lower/higher value = acceleration kicks in earlier/later
+    #define MACCEL_LIMIT 0.0        // lower limit of accel curve (minimum acceleration factor)
+#endif
