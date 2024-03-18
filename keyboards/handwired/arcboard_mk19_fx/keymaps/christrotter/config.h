@@ -1,0 +1,5 @@
+#pragma once
+
+#define RGB_MATRIX_DEFAULT_HUE 5
+#define RGB_MATRIX_DEFAULT_SAT 5
+// #define ENABLE_RGB_MATRIX_BREATHING	
