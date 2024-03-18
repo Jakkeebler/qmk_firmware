@@ -11,14 +11,16 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true
-    },
-    "rgblight": {
-        "led_count": 48
+        "rgb_matrix": false,
+        "rgblight": true
     },
     "ws2812": {
         "pin": "GP22",
         "driver": "vendor"
+    },
+    "rgblight": {
+        "pin": "GP22",
+        "led_count": 48
     },
     "rgb_matrix": {
         "driver": "ws2812",

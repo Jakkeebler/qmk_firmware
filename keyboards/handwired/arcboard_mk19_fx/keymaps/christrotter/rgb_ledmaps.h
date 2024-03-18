@@ -56,5 +56,3 @@ extern const ledmap ledmaps[];
 void set_rgb_ledmap(uint16_t first_led, uint16_t last_led, int val, int layer);
 void set_rgb_range(uint16_t first_led, uint16_t last_led, int hue, int sat, int val);
 
-void rgb_matrix_layers_enable(void);     // do we need this?
-void rgb_matrix_layers_disable(void);    // do we need this?
