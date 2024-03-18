@@ -33,3 +33,7 @@
     #define PMW33XX_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
     #define DRAGSCROLL_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
 #endif
+
+#define UF_INNER_BRIGHTNESS 250
+#define UF_OUTER_BRIGHTNESS 150
+#define INDICATOR_BRIGHTNESS 50
