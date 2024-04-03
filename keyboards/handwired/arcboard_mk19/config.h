@@ -6,7 +6,7 @@
 #define DEBOUNCE 10
 
 // only used for testing matrix/led issues
-#define	SPLIT_HAND_PIN_LOW_IS_LEFT
+// #define	SPLIT_HAND_PIN_LOW_IS_LEFT
 
 // GPIO configuration
 #define SPI_SCK_PIN  GP10
@@ -44,7 +44,7 @@
 // custom matrix config
 #define MATRIX_COLS_SHIFT_REGISTER_COUNT 2
 #define MATRIX_ROWS_SHIFT_REGISTER_COUNT 2
-#define ROWS_COUNT 12 // this can be replaced w. array_size or something?
+#define ROWS_COUNT 6 // this can be replaced w. array_size or something?
 #define ROWS { \
     0b0000000000000001, \
     0b0000000000000010, \
@@ -52,14 +52,14 @@
     0b0000000000001000, \
     0b0000000000010000, \
     0b0000000000100000, \
-    0b0000000001000000, \
-    0b0000000010000000, \
-    0b0000000100000000, \
-    0b0000001000000000, \
-    0b0000010000000000, \
-    0b0000100000000000, \
 }
 
+    // 0b0000000001000000, 
+    // 0b0000000010000000, 
+    // 0b0000000100000000, 
+    // 0b0000001000000000, 
+    // 0b0000010000000000, 
+    // 0b0000100000000000, 
     // 0b0000010000000000, 
     // 0b0000100000000000, 
     // 0b0001000000000000, 

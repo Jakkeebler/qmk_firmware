@@ -57,7 +57,30 @@ row0,  row6  => 8 (0-7)
 // 11 x 6 matrix
 // and what does this mean for the ledmaps?
 // this is not correct - woo good catch here - the schematic says row8/9, but there _is_ no row8/9!
-// so we need to 
+// dpad = row5 and 11
+// macropad = rows 2/3 & 9/10
+// um so how do we reconcile pcb-row vs. info.json-row?
+/*
+// i recall now - cyboard does it completely reversed for reasons i don't understand but he does.
+pcb-row0 = json-row5
+pcb-row1 = json-row4
+pcb-row2 = json-row3
+pcb-row3 = json-row2
+pcb-row4 = json-row1
+pcb-row5 = json-row0 (thumbs)
+
+therefore!!!
+dpad = row5 and 11
+macropad = rows 3/2 & 9/8
+tft buttons = row4:col7&col8
+
+BUT.
+Split causes havoc with the ordering, cuz you double the rows.
+So we need the pcb to output dpad on row5, macropad on row2&3.
+
+6 rows, 10 cols
+*/
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
         EE_CLR,      QK_BOOT,       KC_2,      KC_3,      KC_4,      KC_5,      KC_UP,     KC_RIGHT,  KC_DOWN,   KC_LEFT,   KC_P,       EE_CLR,      QK_BOOT,      KC_8,      KC_9,      KC_0,      KC_EQUAL,  KC_UP,     KC_RIGHT,  KC_DOWN,   KC_LEFT,   KC_P,

@@ -21,7 +21,9 @@
 #endif
 
 #if defined(RGB_MATRIX_LEDMAPS_ENABLED)
-    #define RGB_INDICATOR_BRIGHTNESS 100
+    #define UF_INNER_BRIGHTNESS 250
+    #define UF_OUTER_BRIGHTNESS 150
+    #define INDICATOR_BRIGHTNESS 50
 #endif
 
 #if defined(POINTING_DEVICE_ENABLE)
@@ -33,7 +35,3 @@
     #define PMW33XX_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
     #define DRAGSCROLL_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
 #endif
-
-#define UF_INNER_BRIGHTNESS 250
-#define UF_OUTER_BRIGHTNESS 150
-#define INDICATOR_BRIGHTNESS 50
