@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
-    #define RGB_TOT_IND_L 48
-    #define RGB_TOT_IND_R 48
-#endif
+
+// need this b/c no usb means no usual signals for qmk's startup sequence to find
+#define NO_USB_STARTUP_CHECK

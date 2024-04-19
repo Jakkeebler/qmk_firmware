@@ -54,7 +54,3 @@
     HSV_CYAN
 #define INDICATOR_SHIFT \
     HSV_GREEN
-
-#if defined(RGB_MATRIX_LEDMAPS_ENABLED)
-    #include "rgb_ledmaps.h"
-#endif

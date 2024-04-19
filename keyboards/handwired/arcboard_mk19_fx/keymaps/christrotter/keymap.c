@@ -9,18 +9,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ A │
      * └───┘
      */
-    [0] = LAYOUT_ortho_1x1(
-        EE_CLR
+    [0] = LAYOUT(
+        EE_CLR, KC_LSFT, RGB_MOD, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI
     )
 };
 
 #if defined(CONSOLE_ENABLE)
     #include "print.h"
     void keyboard_post_init_user(void) {
-        // Customise these values to desired behaviour
-        debug_enable=true;
-        debug_matrix=true;
-        debug_keyboard=true;
-        // debug_mouse=true;
+        // todo: some code that takes gpio state and combines into logic
+        // setPinOutput("GPIO18");
+        // writePinLow("GPIO18");
+        // setPinOutput("GPIO19");
+        // writePinLow("GPIO19");
+        // setPinOutput("GPIO20");
+        // writePinLow("GPIO20");
+        // setPinOutput("GPIO21");
+        // writePinLow("GPIO21");
     }
 #endif
+

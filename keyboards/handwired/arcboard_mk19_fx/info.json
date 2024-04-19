@@ -1,17 +1,15 @@
-{
+ {
     "manufacturer": "christrotter",
     "keyboard_name": "handwired/arcboard_mk19_fx",
     "maintainer": "christrotter",
     "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
+    "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
         "command": false,
         "console": true,
         "extrakey": true,
-        "mousekey": true,
         "nkro": true,
-        "rgb_matrix": false,
         "rgblight": true
     },
     "ws2812": {
@@ -22,63 +20,9 @@
         "pin": "GP22",
         "led_count": 48
     },
-    "rgb_matrix": {
-        "driver": "ws2812",
-        "max_brightness": 30,
-        "layout": [
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0},
-            {"flags": 4, "x": 0, "y": 0}
-        ]
-    },
     "matrix_pins": {
-        "cols": ["GP0"],
-        "rows": ["GP1"]
+        "cols": ["GP1","GP2","GP3","GP4","GP5","GP6","GP7"],
+        "rows": ["GP0"]
     },
     "processor": "RP2040",
     "url": "",
@@ -88,9 +32,15 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_ortho_1x1": {
+        "LAYOUT": {
             "layout": [
-                {"matrix": [0, 0], "x": 0, "y": 0}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 0, "y": 0},
+                {"matrix": [0, 2], "x": 0, "y": 0},
+                {"matrix": [0, 3], "x": 0, "y": 0},
+                {"matrix": [0, 4], "x": 0, "y": 0},
+                {"matrix": [0, 5], "x": 0, "y": 0},
+                {"matrix": [0, 6], "x": 0, "y": 0}
             ]
         }
     }
