@@ -11,7 +11,7 @@ SRC += matrix.c
 RGB_MATRIX_LEDMAPS_ENABLED = yes 	# turn on per-key colours
 
 # Encoder
-ENCODER_MAP_ENABLE = no
+ENCODER_MAP_ENABLE = yes
 
 # pointing
 POINTING_DEVICE_ENABLE = yes

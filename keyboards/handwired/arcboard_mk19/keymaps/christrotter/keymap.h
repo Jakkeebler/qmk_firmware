@@ -8,7 +8,7 @@
 #if defined(POINTING_DEVICE_ENABLE) && defined(DRAGSCROLL_ENABLE)
     bool set_scrolling;
 #else
-    // #define DRAG_SCROLL KC_NO
+    #define DRAG_SCROLL KC_NO
 #endif
 
 #if defined(QUANTUM_PAINTER_ENABLE)
@@ -35,24 +35,34 @@
 #define KC_MULTILNE	LGUI(LALT(KC_LSFT))
 
 #define KC_CHRMBACK LGUI(KC_LBRC)
-#define KC_CHRMFWD LGUI(KC_RBRC)
+#define KC_CHRMFWD  LGUI(KC_RBRC)
+
+// rectangle macros; for moving things around on the monitors
+#define REC_LEFT_HALF       LCTL(LALT(KC_LEFT))
+#define REC_RIGHT_HALF      LCTL(LALT(KC_RIGHT))
+#define REC_MAXIMIZE        LCTL(LALT(KC_ENTER))
+#define REC_66_LEFT       LCTL(LALT(KC_E))
+#define REC_66_RIGHT       LCTL(LALT(KC_T))
+#define REC_LEFT_HALF       LCTL(LALT(KC_LEFT))
+#define REC_PREV_MONITOR    LCTL(LALT(LGUI(KC_LEFT)))
+#define REC_NEXT_MONITOR    LCTL(LALT(LGUI(KC_RIGHT)))
 
 // we want to handle word movement (nav) and word select (symbols) on the arrow cluster
 // KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT
-#define KC_SFTGUIARROW_L LGUI(LSFT(KC_LEFT))
-#define KC_SFTGUIARROW_R LGUI(LSFT(KC_RIGHT))
-#define KC_ALTARROW_L LALT(KC_LEFT)
-#define KC_ALTARROW_R LALT(KC_RIGHT)
-#define KC_SFTALTARROW_L LALT(LSFT(KC_LEFT))
-#define KC_SFTALTARROW_R LALT(LSFT(KC_RIGHT))
-#define KC_SFTARROW_U LSFT(KC_UP)
-#define KC_SFTARROW_D LSFT(KC_DOWN)
+#define KC_SFTGUIARROW_L    LGUI(LSFT(KC_LEFT))
+#define KC_SFTGUIARROW_R    LGUI(LSFT(KC_RIGHT))
+#define KC_ALTARROW_L       LALT(KC_LEFT)
+#define KC_ALTARROW_R       LALT(KC_RIGHT)
+#define KC_SFTALTARROW_L    LALT(LSFT(KC_LEFT))
+#define KC_SFTALTARROW_R    LALT(LSFT(KC_RIGHT))
+#define KC_SFTARROW_U       LSFT(KC_UP)
+#define KC_SFTARROW_D       LSFT(KC_DOWN)
 
-#define ZOOM_MUTE LSFT(LGUI(KC_COMM))
-#define ZOOM_VID LSFT(LGUI(KC_DOT))
+#define ZOOM_MUTE   LSFT(LGUI(KC_COMM))
+#define ZOOM_VID    LSFT(LGUI(KC_DOT))
 
-#define MEET_MUTE LSFT(LGUI(KC_8))
-#define MEET_VID LSFT(LGUI(KC_9))
+#define MEET_MUTE   LSFT(LGUI(KC_8))
+#define MEET_VID    LSFT(LGUI(KC_9))
 
 // single button to reset layer
 #define KC_LAYRST TO(_QWERTY)
@@ -119,25 +129,41 @@ enum custom_keycodes {
     // FAL4 = right2(flat)
 
     // left, angled
-    #define FAL1_L0 HSV_PURPLE
-    #define FAL1_L1 HSV_PINK
-    #define FAL1_L2 HSV_BLUE
-    #define FAL1_L3 HSV_MOONLANDER
+    #define FAL1_IN_L0 HSV_CYAN
+    #define FAL1_OUT_L0 HSV_BLUE
+    #define FAL1_IN_L1 HSV_MOONLANDER
+    #define FAL1_OUT_L1 HSV_MOONLANDER
+    #define FAL1_IN_L2 HSV_MOONLANDER
+    #define FAL1_OUT_L2 HSV_MOONLANDER
+    #define FAL1_IN_L3 HSV_MOONLANDER
+    #define FAL1_OUT_L3 HSV_MOONLANDER
     // left, flat
-    #define FAL2_L0 HSV_CYAN
-    #define FAL2_L1 HSV_RED
-    #define FAL2_L2 HSV_MOONLANDER
-    #define FAL2_L3 HSV_MOONLANDER
+    #define FAL2_IN_L0 HSV_CYAN
+    #define FAL2_OUT_L0 HSV_BLUE
+    #define FAL2_IN_L1 HSV_MOONLANDER
+    #define FAL2_OUT_L1 HSV_MOONLANDER
+    #define FAL2_IN_L2 HSV_MOONLANDER
+    #define FAL2_OUT_L2 HSV_MOONLANDER
+    #define FAL2_IN_L3 HSV_MOONLANDER
+    #define FAL2_OUT_L3 HSV_MOONLANDER
     // right, angled - full-time layer selector
-    #define FAL3_L0 HSV_SPRINGGREEN
-    #define FAL3_L1 HSV_MOONLANDER
-    #define FAL3_L2 HSV_MOONLANDER
-    #define FAL3_L3 HSV_MOONLANDER
+    #define FAL3_IN_L0 HSV_CYAN
+    #define FAL3_OUT_L0 HSV_BLUE
+    #define FAL3_IN_L1 HSV_MOONLANDER
+    #define FAL3_OUT_L1 HSV_MOONLANDER
+    #define FAL3_IN_L2 HSV_MOONLANDER
+    #define FAL3_OUT_L2 HSV_MOONLANDER
+    #define FAL3_IN_L3 HSV_MOONLANDER
+    #define FAL3_OUT_L3 HSV_MOONLANDER
     // right, flat
-    #define FAL4_L0 HSV_CYAN
-    #define FAL4_L1 HSV_GREEN
-    #define FAL4_L2 HSV_MOONLANDER
-    #define FAL4_L3 HSV_MOONLANDER
+    #define FAL4_IN_L0 HSV_CYAN
+    #define FAL4_OUT_L0 HSV_BLUE
+    #define FAL4_IN_L1 HSV_MOONLANDER
+    #define FAL4_OUT_L1 HSV_MOONLANDER
+    #define FAL4_IN_L2 HSV_MOONLANDER
+    #define FAL4_OUT_L2 HSV_MOONLANDER
+    #define FAL4_IN_L3 HSV_MOONLANDER
+    #define FAL4_OUT_L3 HSV_MOONLANDER
 #endif
 
 // encoder button mapping // uhhh why do we have this again...

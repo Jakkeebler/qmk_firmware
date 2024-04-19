@@ -61,10 +61,7 @@ bool rgb_matrix_indicators_user() {
     if (is_keyboard_left()) {
         // set LEFT per-key leds by ledmap
         set_rgb_ledmap(RGB_KEYS_L_START, RGB_KEYS_L_END, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
-        set_rgb_range(RGB_UF1_INNER_L_START, RGB_UF1_INNER_L_END, HSV_CYAN, UF_INNER_BRIGHTNESS);
-        set_rgb_range(RGB_UF2_INNER_L_START, RGB_UF2_INNER_L_END, HSV_GREEN, UF_INNER_BRIGHTNESS);
-        set_rgb_range(RGB_UF1_OUTER_L_START, RGB_UF1_OUTER_L_END, HSV_PURPLE, UF_OUTER_BRIGHTNESS);
-        set_rgb_range(RGB_UF2_OUTER_L_START, RGB_UF2_OUTER_L_END, HSV_BLUE, UF_OUTER_BRIGHTNESS);
+
         if (is_shifted) {
             set_rgb_range(RGB_INDICATOR_L_START, RGB_INDICATOR_L_END, HSV_GREEN, INDICATOR_BRIGHTNESS);
         } else if (is_oneshot) {
@@ -72,17 +69,41 @@ bool rgb_matrix_indicators_user() {
         } else if (set_scrolling) {
             set_rgb_range(RGB_INDICATOR_L_START, RGB_INDICATOR_L_END, HSV_ORANGE, INDICATOR_BRIGHTNESS);
         } else {
-            set_rgb_range(RGB_INDICATOR_L_START, RGB_INDICATOR_L_END, HSV_MOONLANDER, INDICATOR_BRIGHTNESS);
+            set_rgb_range(RGB_INDICATOR_L_START, RGB_INDICATOR_L_END, HSV_MOONLANDER, INDICATOR_IDLE_BRIGHTNESS);
         }
-        
+
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case 0:
+                set_rgb_range(RGB_UF1_INNER_L_START, RGB_UF1_INNER_L_END, FAL1_IN_L0, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF1_OUTER_L_START, RGB_UF1_OUTER_L_END, FAL1_OUT_L0, UF_OUTER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_INNER_L_START, RGB_UF2_INNER_L_END, FAL2_IN_L0, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_OUTER_L_START, RGB_UF2_OUTER_L_END, FAL2_OUT_L0, UF_OUTER_BRIGHTNESS);
+                break;
+            case 1:
+                set_rgb_range(RGB_UF1_INNER_L_START, RGB_UF1_INNER_L_END, FAL1_IN_L1, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF1_OUTER_L_START, RGB_UF1_OUTER_L_END, FAL1_OUT_L1, UF_OUTER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_INNER_L_START, RGB_UF2_INNER_L_END, FAL2_IN_L1, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_OUTER_L_START, RGB_UF2_OUTER_L_END, FAL2_OUT_L1, UF_OUTER_BRIGHTNESS);
+                break;
+            case 2:
+                set_rgb_range(RGB_UF1_INNER_L_START, RGB_UF1_INNER_L_END, FAL1_IN_L2, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF1_OUTER_L_START, RGB_UF1_OUTER_L_END, FAL1_OUT_L2, UF_OUTER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_INNER_L_START, RGB_UF2_INNER_L_END, FAL2_IN_L2, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_OUTER_L_START, RGB_UF2_OUTER_L_END, FAL2_OUT_L2, UF_OUTER_BRIGHTNESS);
+                break;
+            case 3:
+                set_rgb_range(RGB_UF1_INNER_L_START, RGB_UF1_INNER_L_END, FAL1_IN_L3, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF1_OUTER_L_START, RGB_UF1_OUTER_L_END, FAL1_OUT_L3, UF_OUTER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_INNER_L_START, RGB_UF2_INNER_L_END, FAL2_IN_L3, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_OUTER_L_START, RGB_UF2_OUTER_L_END, FAL2_OUT_L3, UF_OUTER_BRIGHTNESS);
+                break;
+            default:
+                break;
+        }   
     } else {
         // set RIGHT per-key leds by ledmap
         set_rgb_ledmap(RGB_KEYS_R_START, RGB_KEYS_R_END, rgb_matrix_get_val(), get_highest_layer(layer_state | default_layer_state));
-        set_rgb_range(RGB_UF1_INNER_R_START, RGB_UF1_INNER_R_END, HSV_CYAN, UF_INNER_BRIGHTNESS);
-        set_rgb_range(RGB_UF2_INNER_R_START, RGB_UF2_INNER_R_END, HSV_GREEN, UF_INNER_BRIGHTNESS);
-        set_rgb_range(RGB_UF1_OUTER_R_START, RGB_UF1_OUTER_R_END, HSV_BLUE, UF_OUTER_BRIGHTNESS);
-        set_rgb_range(RGB_UF2_OUTER_R_START, RGB_UF2_OUTER_R_END, HSV_PURPLE, UF_OUTER_BRIGHTNESS);
-        set_rgb_range(RGB_INDICATOR_R_START, RGB_INDICATOR_R_END, HSV_RED, INDICATOR_BRIGHTNESS);
+
         if (is_shifted) {
             set_rgb_range(RGB_INDICATOR_R_START, RGB_INDICATOR_R_END, HSV_GREEN, INDICATOR_BRIGHTNESS);
         } else if (is_oneshot) {
@@ -90,9 +111,37 @@ bool rgb_matrix_indicators_user() {
         } else if (set_scrolling) {
             set_rgb_range(RGB_INDICATOR_R_START, RGB_INDICATOR_R_END, HSV_ORANGE, INDICATOR_BRIGHTNESS);
         } else {
-            set_rgb_range(RGB_INDICATOR_R_START, RGB_INDICATOR_R_END, HSV_MOONLANDER, INDICATOR_BRIGHTNESS);
+            set_rgb_range(RGB_INDICATOR_R_START, RGB_INDICATOR_R_END, HSV_MOONLANDER, INDICATOR_IDLE_BRIGHTNESS);
+        }
+
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case 0:
+                set_rgb_range(RGB_UF1_INNER_R_START, RGB_UF1_INNER_R_END, FAL3_IN_L0, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF1_OUTER_R_START, RGB_UF1_OUTER_R_END, FAL3_OUT_L0, UF_OUTER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_INNER_R_START, RGB_UF2_INNER_R_END, FAL4_IN_L0, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_OUTER_R_START, RGB_UF2_OUTER_R_END, FAL4_OUT_L0, UF_OUTER_BRIGHTNESS);
+                break;
+            case 1:
+                set_rgb_range(RGB_UF1_INNER_R_START, RGB_UF1_INNER_R_END, FAL3_IN_L1, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF1_OUTER_R_START, RGB_UF1_OUTER_R_END, FAL3_OUT_L1, UF_OUTER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_INNER_R_START, RGB_UF2_INNER_R_END, FAL4_IN_L1, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_OUTER_R_START, RGB_UF2_OUTER_R_END, FAL4_OUT_L1, UF_OUTER_BRIGHTNESS);
+                break;
+            case 2:
+                set_rgb_range(RGB_UF1_INNER_R_START, RGB_UF1_INNER_R_END, FAL3_IN_L2, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF1_OUTER_R_START, RGB_UF1_OUTER_R_END, FAL3_OUT_L2, UF_OUTER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_INNER_R_START, RGB_UF2_INNER_R_END, FAL4_IN_L2, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_OUTER_R_START, RGB_UF2_OUTER_R_END, FAL4_OUT_L2, UF_OUTER_BRIGHTNESS);
+                break;
+            case 3:
+                set_rgb_range(RGB_UF1_INNER_R_START, RGB_UF1_INNER_R_END, FAL3_IN_L3, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF1_OUTER_R_START, RGB_UF1_OUTER_R_END, FAL3_OUT_L3, UF_OUTER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_INNER_R_START, RGB_UF2_INNER_R_END, FAL4_IN_L3, UF_INNER_BRIGHTNESS);
+                set_rgb_range(RGB_UF2_OUTER_R_START, RGB_UF2_OUTER_R_END, FAL4_OUT_L3, UF_OUTER_BRIGHTNESS);
+                break;
+            default:
+                break;
         }
     }
-
-    return true; // rgb_matrix_indicators_keymap(led_min, led_max);
+    return true;
 }

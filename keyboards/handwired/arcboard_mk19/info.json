@@ -33,18 +33,18 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            { "pin_a": "GP18", "pin_b": "GP19", "resolution": 4 },
-            { "pin_a": "GP20", "pin_b": "GP21", "resolution": 4 }
+            { "pin_a": "GP5", "pin_b": "GP6", "resolution": 2 },
+            { "pin_a": "GP3", "pin_b": "GP4", "resolution": 2 }
         ]
     },
     "AUTO_MOUSE_DEFAULT_LAYER": "_MOUSE",
     "ws2812": {
-        "pin": "GP28",
+        "pin": "GP9",
         "driver": "vendor"
     },
     "rgb_matrix": {
         "driver": "ws2812",
-        "max_brightness": 30,
+        "max_brightness": 90,
         "split_count": [109,109],
         "layout": [
              {"flags": 4, "matrix": [3, 0], "x": 0, "y": 0},
@@ -319,6 +319,7 @@
                 {"matrix": [4, 5], "x": 5, "y": 0},
                 {"matrix": [4, 6], "x": 5, "y": 0},
                 {"matrix": [4, 7], "x": 5, "y": 0},
+                {"matrix": [4, 8], "x": 5, "y": 0},
                 {"matrix": [10, 0], "x": 0, "y": 0},
                 {"matrix": [10, 1], "x": 1, "y": 0},
                 {"matrix": [10, 2], "x": 2, "y": 0},
@@ -327,6 +328,7 @@
                 {"matrix": [10, 5], "x": 5, "y": 0},
                 {"matrix": [10, 6], "x": 5, "y": 0},
                 {"matrix": [10, 7], "x": 5, "y": 0},
+                {"matrix": [10, 8], "x": 5, "y": 0},
                 {"matrix": [3, 0], "x": 0, "y": 0},
                 {"matrix": [3, 1], "x": 1, "y": 0},
                 {"matrix": [3, 2], "x": 2, "y": 0},

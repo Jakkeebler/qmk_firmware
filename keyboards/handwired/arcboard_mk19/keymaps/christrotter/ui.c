@@ -6,7 +6,8 @@
 #include "graphics/futura40.qff.c"
 
 static painter_font_handle_t font;
-static painter_device_t display;
+static painter_device_t display1;
+static painter_device_t display2;
 
 const char *current_layer_name(void) {
     switch (get_highest_layer(layer_state)) {
@@ -24,60 +25,73 @@ const char *current_layer_name(void) {
 
 void init_ui(void) {
     font = qp_load_font_mem(font_futura40);
-    display = qp_gc9a01_make_spi_device(240, 240, DISPLAY2_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, DISPLAY_SPI_MODE);
-    if (!(is_keyboard_left())) {
-        qp_init(display, QP_ROTATION_0);
-        setPinOutput(DISPLAY_LED_PIN);
-        writePinHigh(DISPLAY_LED_PIN);
-        qp_rect(display, 0, 0, 240, 240, HSV_BLUE, true);
-        qp_flush(display);
-    }
+
+    display1 = qp_gc9a01_make_spi_device(240, 240, DISPLAY2_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, DISPLAY_SPI_MODE);
+    qp_init(display1, QP_ROTATION_0);
+
+    display2 = qp_gc9a01_make_spi_device(240, 240, DISPLAY1_CS_PIN, DISPLAY_DC_PIN, NO_PIN, DISPLAY_SPI_DIVISOR, DISPLAY_SPI_MODE);
+    qp_init(display2, QP_ROTATION_270);
+
+    setPinOutput(DISPLAY_LED_PIN);
+    writePinHigh(DISPLAY_LED_PIN);
+
+    qp_rect(display1, 0, 0, 240, 240, HSV_CYAN, true);
+    qp_flush(display1);
+    qp_rect(display2, 0, 0, 240, 240, HSV_CYAN, true);
+    qp_flush(display2);
 }
 
 void draw_ui_user(void) {
-    if (!(is_keyboard_left())) {
-        uint16_t width;
-        uint16_t height;
-        qp_get_geometry(display, &width, &height, NULL, NULL, NULL);
-        #if defined(CONSOLE_ENABLE)
-            char buf[32] = {0};
-        #endif
-        bool layer_state_redraw = false;
-        static uint32_t last_layer_state   = 0;
-        if (last_layer_state  != layer_state) {
-            last_layer_state   = layer_state;
-            layer_state_redraw = true;
-        }
-        if (layer_state_redraw) {
-            extern const char *current_layer_name(void);
-            const char        *layer_name = current_layer_name();
-            const char        *mouse = "mouse";
-            const char        *qwerty = "qwerty";
-            const char        *nav = "nav";
-            const char        *symbols = "symbols";
-            int ypos = 150;
-            #if defined(CONSOLE_ENABLE)
-                snprintf(buf, sizeof(buf), "%s", layer_name);
-            #endif
-            int mouse_layer = strcmp(layer_name, mouse);
-            int qwerty_layer = strcmp(layer_name, qwerty);
-            int nav_layer = strcmp(layer_name, nav);
-            int symbols_layer = strcmp(layer_name, symbols);
-            if (qwerty_layer==0) {
-                qp_drawtext_recolor(display, 35, ypos, font, "  QWERTY  ", HSV_WHITE, HSV_BLACK);
-            }
-            if (mouse_layer==0) {
-                qp_drawtext_recolor(display, 45, ypos, font, "  MOUSE  ", HSV_WHITE, HSV_BLACK);
-            }
-            if (nav_layer==0) {
-                qp_drawtext_recolor(display, 75, ypos, font, "    NAV    ", HSV_WHITE, HSV_BLACK);
-            }
-            if (symbols_layer==0) {
-                qp_drawtext_recolor(display, 25, ypos, font, " SYMBOLS ", HSV_WHITE, HSV_BLACK);
-            }
-        }
-        qp_flush(display);
-    }
+    // if (!(is_keyboard_left())) {
+       // uint16_t width;
+       // uint16_t height;
+       // qp_get_geometry(display1, &width, &height, NULL, NULL, NULL);
+       // #if defined(CONSOLE_ENABLE)
+       //     char buf[32] = {0};
+       // #endif
+       // bool layer_state_redraw = false;
+       // static uint32_t last_layer_state   = 0;
+       // if (last_layer_state  != layer_state) {
+       //     last_layer_state   = layer_state;
+       //     layer_state_redraw = true;
+       // }
+       // if (layer_state_redraw) {
+       //     extern const char *current_layer_name(void);
+       //     const char        *layer_name = current_layer_name();
+       //     const char        *mouse = "mouse";
+       //     const char        *qwerty = "qwerty";
+       //     const char        *nav = "nav";
+       //     const char        *symbols = "symbols";
+       //     int ypos = 150;
+       //     #if defined(CONSOLE_ENABLE)
+       //         snprintf(buf, sizeof(buf), "%s", layer_name);
+       //     #endif
+       //     int mouse_layer = strcmp(layer_name, mouse);
+       //     int qwerty_layer = strcmp(layer_name, qwerty);
+       //     int nav_layer = strcmp(layer_name, nav);
+       //     int symbols_layer = strcmp(layer_name, symbols);
+       //     qp_rect(display1, 0, 0, 240, 240, HSV_BLUE, true);
+       //     qp_rect(display2, 0, 0, 240, 240, HSV_BLUE, true);
+       //     if (qwerty_layer==0) {
+       //         qp_drawtext_recolor(display1, 35, ypos, font, "QWERTY1 ", HSV_WHITE, HSV_BLACK);
+       //         qp_drawtext_recolor(display2, 35, ypos, font, "QWERTY2 ", HSV_WHITE, HSV_BLACK);
+       //     }
+       //     if (mouse_layer==0) {
+       //         qp_drawtext_recolor(display1, 45, ypos, font, "MOUSE1  ", HSV_WHITE, HSV_BLACK);
+       //         qp_drawtext_recolor(display2, 45, ypos, font, "MOUSE2  ", HSV_WHITE, HSV_BLACK);
+       //     }
+       //     if (nav_layer==0) {
+       //         qp_drawtext_recolor(display1, 75, ypos, font, "NAV1    ", HSV_WHITE, HSV_BLACK);
+       //         qp_drawtext_recolor(display2, 75, ypos, font, "NAV2    ", HSV_WHITE, HSV_BLACK);
+       //     }
+       //     if (symbols_layer==0) {
+       //         qp_drawtext_recolor(display1, 25, ypos, font, "SYMBOLS1 ", HSV_WHITE, HSV_BLACK);
+       //         qp_drawtext_recolor(display2, 25, ypos, font, "SYMBOLS2 ", HSV_WHITE, HSV_BLACK);
+       //     }
+       // }
+       // qp_flush(display1);
+       // qp_flush(display2);
+    // }
 }
 
 void keyboard_post_init_kb(void) {
