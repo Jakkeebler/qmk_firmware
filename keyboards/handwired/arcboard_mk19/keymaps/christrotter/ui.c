@@ -4,8 +4,16 @@
 #include <qp.h>
 #include "arcboard_mk19.c"
 #include "graphics/futura40.qff.c"
+#include "graphics/awesome.qgf.h"
+#include "graphics/disappointed_guy.qgf.h"
+#include "graphics/roger.qgf.h"
+#include "graphics/qmk-logo.qgf.h"
 
 static painter_font_handle_t font;
+static painter_image_handle_t awesome;
+static painter_image_handle_t disappointed_guy;
+static painter_image_handle_t roger;
+static painter_image_handle_t qmk_logo;
 static painter_device_t display1;
 static painter_device_t display2;
 
@@ -25,10 +33,14 @@ const char *current_layer_name(void) {
 
 void init_ui(void) {
     font = qp_load_font_mem(font_futura40);
+    awesome = qp_load_image_mem(gfx_awesome);
+    disappointed_guy = qp_load_image_mem(gfx_disappointed_guy);
+    roger = qp_load_image_mem(gfx_roger);
+    qmk_logo = qp_load_image_mem(gfx_qmk_logo);
 
     display1 = qp_gc9a01_make_spi_device(240, 240, DISPLAY2_CS_PIN, DISPLAY_DC_PIN, DISPLAY_RST_PIN, DISPLAY_SPI_DIVISOR, DISPLAY_SPI_MODE);
     qp_init(display1, QP_ROTATION_0);
-
+    // when you init display1, b/c they share rst pin, you do something to reset; running it again when init-ing display2 un-does all your init?
     display2 = qp_gc9a01_make_spi_device(240, 240, DISPLAY1_CS_PIN, DISPLAY_DC_PIN, NO_PIN, DISPLAY_SPI_DIVISOR, DISPLAY_SPI_MODE);
     qp_init(display2, QP_ROTATION_270);
 
@@ -36,9 +48,14 @@ void init_ui(void) {
     writePinHigh(DISPLAY_LED_PIN);
 
     qp_rect(display1, 0, 0, 240, 240, HSV_CYAN, true);
-    qp_flush(display1);
     qp_rect(display2, 0, 0, 240, 240, HSV_CYAN, true);
+
+    qp_drawimage(display1, 0, 0, qmk_logo);
+    qp_drawimage(display2, 0, 0, qmk_logo);
+
     qp_flush(display2);
+    qp_flush(display1);
+    
 }
 
 void draw_ui_user(void) {

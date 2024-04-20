@@ -19,3 +19,5 @@ DRAGSCROLL_ENABLE = yes
 
 # audio
 AUDIO_DRIVER = pwm_hardware
+
+QUANTUM_PAINTER_DEBUG_ENABLE = yes

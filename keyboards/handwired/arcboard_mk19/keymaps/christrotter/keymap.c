@@ -9,9 +9,9 @@
     #include "print.h"
     void keyboard_post_init_user(void) {
         // Customise these values to desired behaviour
-        // debug_enable=true;
+        debug_enable=true;
         // debug_matrix=true;
-        // debug_keyboard=true;
+        debug_keyboard=true;
         // debug_mouse=true;
     }
 #endif
@@ -331,3 +331,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #endif // end CUSTOM_KEYCODES (for troubleshooting)
     return true;
 }
+
+/*
+"emoji-coder"
+- map of images to text strings e.g. :emoji-name:
+- button activates function that sends text string
+- function that changes image displayed depending on encoder rotation
+*/

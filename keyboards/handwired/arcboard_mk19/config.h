@@ -146,10 +146,11 @@
 #if defined(QUANTUM_PAINTER_ENABLE)
     #define QUANTUM_PAINTER_TASK_THROTTLE 50 // trying to reduce the scan rate impact
     #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0 // this is super important - you get a white screen after 30s otherwise
-    // #define QUANTUM_PAINTER_DEBUG
+    #define QUANTUM_PAINTER_DEBUG
     #define DISPLAY_SPI_DIVISOR 12
     #define DISPLAY_SPI_MODE 0
     #define GC9A01_NUM_DEVICES 2
+    #define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS true
     // #define QUANTUM_PAINTER_NUM_DISPLAYS 2
 #endif
 
