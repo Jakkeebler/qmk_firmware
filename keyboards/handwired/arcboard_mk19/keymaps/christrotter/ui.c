@@ -9,6 +9,8 @@
 #include "graphics/roger.qgf.h"
 #include "graphics/qmk-logo.qgf.h"
 
+bool lcd_power;
+
 static painter_font_handle_t font;
 static painter_image_handle_t awesome;
 static painter_image_handle_t disappointed_guy;
@@ -59,6 +61,10 @@ void init_ui(void) {
 }
 
 void draw_ui_user(void) {
+    // if (qp_lvgl_attach(display1)) {     // Attach LVGL to the display
+    //     // ...Your code to draw           // Run LVGL specific code to draw
+    // }
+    // then detach lvgl!!!
     // if (!(is_keyboard_left())) {
        // uint16_t width;
        // uint16_t height;
@@ -113,11 +119,22 @@ void draw_ui_user(void) {
 
 void keyboard_post_init_kb(void) {
     init_ui();   // Initialise the display
+    keyboard_post_init_user();
 }
+
 void housekeeping_task_user(void) {
     static uint32_t last_draw = 0;
-    if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
-        last_draw = timer_read32();
-        draw_ui_user();
+    lcd_power = (last_input_activity_elapsed() < SCREEN_TIMEOUT) ? 1 : 0;
+
+    setPinOutput(DISPLAY_LED_PIN);
+    if (lcd_power) {
+        writePinHigh(DISPLAY_LED_PIN);
+        if (timer_elapsed32(last_draw) > 33) { // Throttle to 30fps
+            last_draw = timer_read32();
+            draw_ui_user();
+        }
+    } else {
+        writePinLow(DISPLAY_LED_PIN);
     }
+
 }
