@@ -33,6 +33,14 @@
     #define POINTING_DEVICE_INVERT_Y
     #define ROTATIONAL_TRANSFORM_ANGLE 90
     #define DRAGSCROLL_BUFFER_SIZE 6
-    #define PMW33XX_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks)
+    #define PMW33XX_CPI 700       // your mouse cpi (DPI) setting (how fast the ball tracks); note when usb main is on the left half this config needs to be 900
     #define DRAGSCROLL_CPI 100    // dragscroll cpi - interestingly, can't be set below 100?
 #endif
+
+
+// tuning the scroll responsiveness
+#define MOUSEKEY_WHEEL_DELAY 5
+#define MOUSEKEY_WHEEL_INTERVAL 20
+#define MOUSEKEY_WHEEL_DELTA 4
+#define MOUSEKEY_WHEEL_MAX_SPEED 14
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 20

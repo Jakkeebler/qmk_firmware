@@ -145,7 +145,7 @@ enum custom_keycodes {
     #define FAL2_IN_L2 HSV_MOONLANDER
     #define FAL2_OUT_L2 HSV_MOONLANDER
     #define FAL2_IN_L3 HSV_MOONLANDER
-    #define FAL2_OUT_L3 HSV_MOONLANDER
+    #define FAL2_OUT_L3 HSV_BLUE
     // right, angled - full-time layer selector
     #define FAL3_IN_L0 HSV_CYAN
     #define FAL3_OUT_L0 HSV_BLUE
@@ -154,7 +154,7 @@ enum custom_keycodes {
     #define FAL3_IN_L2 HSV_MOONLANDER
     #define FAL3_OUT_L2 HSV_MOONLANDER
     #define FAL3_IN_L3 HSV_MOONLANDER
-    #define FAL3_OUT_L3 HSV_MOONLANDER
+    #define FAL3_OUT_L3 HSV_GREEN
     // right, flat
     #define FAL4_IN_L0 HSV_CYAN
     #define FAL4_OUT_L0 HSV_BLUE

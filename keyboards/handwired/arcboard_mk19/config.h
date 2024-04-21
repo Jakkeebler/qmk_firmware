@@ -152,7 +152,7 @@
     #define GC9A01_NUM_DEVICES 2
     #define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS true
     #define QP_LVGL_TASK_PERIOD 40
-    #define SCREEN_TIMEOUT (11 * 1000) // shut off the displays after 
+    #define SCREEN_TIMEOUT (900 * 1000) // shut off the displays after 15 minutes
     // #define QUANTUM_PAINTER_NUM_DISPLAYS 2
 #endif
 
