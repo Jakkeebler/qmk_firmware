@@ -28,6 +28,9 @@
     #include "rgb_ledmaps.h"
 #endif
 
+bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
+uint16_t alt_tab_timer = 0;     // we will be using them soon.
+
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
 void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) { post_process_record_keymap(keycode, record); }
@@ -98,8 +101,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
         KC_ESC, _______, _______, _______, _______, KC_F5,                  KC_MULTILNE, _______, OSM(MOD_LSFT), _______, KC_ESC,      _______,_______,_______,_______, _______, KC_F12,                KC_LEFT, KC_P, KC_DOWN, KC_UP, KC_RIGHT,
         KC_TILD,LT(0,KC_1),LT(0,KC_2),LT(0,KC_3),LT(0,KC_4),LT(0,KC_5),     KC_NO, KC_2, KC_1,                                      LT(0,KC_6),LT(0,KC_7),LT(0,KC_8),LT(0,KC_9), KC_0, KC_EQUAL,     KC_NO, KC_1, KC_2,
-        KC_TAB, KC_Q, LT(0,KC_W),HOME_E, LT(0,KC_R),LT(0,KC_T),             KC_1, KC_2, KC_3, KC_MACSHOT,                           KC_Y, KC_U, LT(0,KC_I),KC_O, KC_P, KC_MINUS,                     REC_PREV_MONITOR, REC_LEFT_HALF, REC_RIGHT_HALF, REC_NEXT_MONITOR,
-        KC_LSFT, LT(0,KC_A), HOME_S,  HOME_D,  HOME_F, KC_G,                KC_5, KC_6, KC_7, MAGIPLAY,                             KC_H, HOME_J, HOME_K, HOME_L, KC_QUOT, KC_SCLN,                        REC_MAXIMIZE, REC_66_LEFT, REC_66_RIGHT, KC_8,
+        KC_TAB, KC_Q, LT(0,KC_W),HOME_E, LT(0,KC_R),LT(0,KC_T),             MEET_MUTE, MEET_HAND, KC_3, KC_MACSHOT,                           KC_Y, KC_U, LT(0,KC_I),KC_O, KC_P, KC_MINUS,                     REC_PREV_MONITOR, REC_LEFT_HALF, REC_RIGHT_HALF, REC_NEXT_MONITOR,
+        KC_LSFT, LT(0,KC_A), HOME_S,  HOME_D,  HOME_F, KC_G,                MEET_VID, KC_6, KC_7, MAGIPLAY,                             KC_H, HOME_J, HOME_K, HOME_L, KC_QUOT, KC_SCLN,                        REC_MAXIMIZE, REC_66_LEFT, REC_66_RIGHT, KC_8,
         DRAG_SCROLL,LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),                                                         LT(0,KC_N),HOME_M,KC_COMM,KC_DOT,KC_SLASH,KC_ESC,
         KC_BSPC, MO(_NAV), KC_DEL, KC_ESC, KC_LSFT, OSM(MOD_LSFT),                                                                  KC_SPACE,  KC_ENTER,   MO(_SYMBOLS), MO(_NAV), KC_LSFT, KC_MULTILNE
     ),
@@ -144,7 +147,7 @@ const ledmap ledmaps[] = {
     GREEN, ___n___, HRM_ALT, HRM_GUI, HRM_SFT, ___n___,         ___n___, HRM_SFT, HRM_GUI, HRM_ALT, ___n___, ___n___, 
     ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,        ___n___, HRM_CTL, ___n___, ___n___, ___n___,     RED,
     GREEN, GREEN, ESC, DEL, TOG_NAV, RED,                       GREEN, GREEN, TOG_NAV, TOG_SYM, ENTER, SPACE,
-    GREEN, GREEN, GREEN, PINK, CYAN, CYAN, CYAN, ORANGE,         BLUE, PURPLE, PINK, WHITE, RED, ORANGE, YELLOW, GREEN
+    PURPLE, ___n___, ___n___, PINK, RED, SPRING, ___n___, ORANGE,         BLUE, PURPLE, PINK, ___n___, RED, ORANGE, YELLOW, GREEN
     ),
    [_MOUSE]   = LEDMAP(
     RED, ORANGE, YELLOW, GREEN, CYAN, BLUE,                     RED, ORANGE, YELLOW, GREEN, CYAN, BLUE,
@@ -153,7 +156,7 @@ const ledmap ledmaps[] = {
     GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,         ___n___, PINK, PURPLE, BLUE, ___n___, ___n___, 
     ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,        ___n___, ___n___, ___n___, ___n___, ___n___,     RED,
     GREEN, GREEN, ESC, DEL, TOG_NAV, RED,                       GREEN, GREEN, TOG_NAV, TOG_SYM, ENTER, SPACE,
-    GREEN, GREEN, GREEN, GREEN, CYAN, CYAN, CYAN, CYAN,         BLUE, WHITE, WHITE, WHITE, RED, ORANGE, YELLOW, GREEN
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,      ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
     ),
    [_SYMBOLS]   = LEDMAP(
     RED, ORANGE, YELLOW, GREEN, CYAN, BLUE,                     RED, ORANGE, YELLOW, GREEN, CYAN, BLUE,
@@ -162,7 +165,7 @@ const ledmap ledmaps[] = {
     GREEN, CYAN, YELLOW, MAGENT, MAGENT, BLUE,                  GREEN, CYAN, CYAN, CYAN, CYAN, ___n___, 
     ORANGE, GOLD, GREEN, PINK, PINK, CYAN,                      RED, CYAN, CYAN, CYAN, GOLD, ___n___,
     GREEN, GREEN, ESC, DEL, TOG_NAV, RED,                       GREEN, GREEN, TOG_NAV, TOG_SYM, ENTER, SPACE,
-    GREEN, GREEN, GREEN, GREEN, CYAN, CYAN, CYAN, CYAN,         BLUE, WHITE, WHITE, WHITE, RED, ORANGE, YELLOW, GREEN
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,      ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
     ),
    [_NAV]   = LEDMAP(
     RED, ORANGE, ___n___, ___n___, ___n___, ___n___,            RED, ORANGE, ___n___, ___n___, ___n___, ___n___,
@@ -171,7 +174,7 @@ const ledmap ledmaps[] = {
     GREEN, BLUE,  SPRING,    PINK,    CYAN, ___n___,            YELLOW,   GREEN,   GREEN,   GREEN,  YELLOW, ___n___, 
     ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,        PURPLE,  ORANGE,  ORANGE,  ORANGE,  PURPLE, ___n___,
     GREEN, YELLOW, ESC, DEL, TOG_NAV, RED,                       GREEN, GREEN, TOG_NAV, TOG_SYM, ENTER, SPACE,
-    GREEN, GREEN, GREEN, GREEN, CYAN, CYAN, CYAN, CYAN,         BLUE, WHITE, WHITE, WHITE, RED, ORANGE, YELLOW, GREEN
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,      ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
     ),
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED
@@ -189,144 +192,170 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // now we check for specific keycodes...
     #if defined(CUSTOM_KEYCODES)
         switch (keycode) {
-                case LT(0,KC_YAY):
+            case ALT_TAB:
                 if (record->event.pressed) {
-                    SEND_STRING("\\o/");
-                    return false;
+                  if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LGUI);
+                  }
+                  alt_tab_timer = timer_read();
+                  register_code(KC_TAB);
+                } else {
+                  unregister_code(KC_TAB);
                 }
-                return true;
-                case LT(0,KC_TILD):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_TILD)); // hold for command+letter
-                    return false;
+                break;
+            case SFT_ALT_TAB:
+                if (record->event.pressed) {
+                  if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LGUI);
+                  }
+                  alt_tab_timer = timer_read();
+                  register_code(KC_LSFT);
+                  register_code(KC_TAB);
+                } else {
+                  unregister_code(KC_TAB);
+                  unregister_code(KC_LSFT);
                 }
-                return true;
-                case LT(0,KC_1):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_1)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_2):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_2)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_3):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_3)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_4):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_4)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_5):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_5)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_6):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_6)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_7):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_7)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_8):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_8)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_9):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_9)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_Z):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_Z)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_X):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_X)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_C):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_C)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_V):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_V)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_B):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_B)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_A):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_A)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_R):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_R)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_W):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_W)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_T):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_T)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_N):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(LSFT(KC_N))); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_I):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(LCMD(KC_I)); // hold for command+letter
-                    return false;
-                }
-                return true;
-                case LT(0,KC_MPLY):
-                if (!record->tap.count && record->event.pressed) {
-                    tap_code16(KC_MNXT); // hold for command+letter
-                    return false;
-                }
-                return true;
+                break;
+            case LT(0,KC_YAY):
+            if (record->event.pressed) {
+                SEND_STRING("\\o/");
+                return false;
+            }
+            return true;
+            case LT(0,KC_TILD):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_TILD)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_1):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_1)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_2):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_2)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_3):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_3)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_4):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_4)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_5):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_5)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_6):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_6)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_7):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_7)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_8):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_8)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_9):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_9)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_Z):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_Z)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_X):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_X)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_C):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_C)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_V):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_V)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_B):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_B)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_A):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_A)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_R):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_R)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_W):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_W)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_T):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_T)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_N):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(LSFT(KC_N))); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_I):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(LCMD(KC_I)); // hold for command+letter
+                return false;
+            }
+            return true;
+            case LT(0,KC_MPLY):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_MNXT); // hold for command+letter
+                return false;
+            }
+            return true;
     }
     #endif // end CUSTOM_KEYCODES (for troubleshooting)
     return true;
@@ -338,3 +367,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 - button activates function that sends text string
 - function that changes image displayed depending on encoder rotation
 */
+
+void matrix_scan_user(void) {
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LGUI);
+      // unregister_code(KC_LSFT);
+      is_alt_tab_active = false;
+    }
+  }
+}

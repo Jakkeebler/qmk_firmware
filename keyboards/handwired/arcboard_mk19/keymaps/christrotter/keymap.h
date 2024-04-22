@@ -58,11 +58,15 @@
 #define KC_SFTARROW_U       LSFT(KC_UP)
 #define KC_SFTARROW_D       LSFT(KC_DOWN)
 
+#define ZOOM_IN LGUI(KC_PLUS)
+#define ZOOM_OUT LGUI(KC_MINUS)
+
 #define ZOOM_MUTE   LSFT(LGUI(KC_COMM))
 #define ZOOM_VID    LSFT(LGUI(KC_DOT))
 
-#define MEET_MUTE   LSFT(LGUI(KC_8))
-#define MEET_VID    LSFT(LGUI(KC_9))
+#define MEET_HAND   LGUI(LCTL(KC_H))
+#define MEET_MUTE   LGUI(KC_D)
+#define MEET_VID    LGUI(KC_E)
 
 // single button to reset layer
 #define KC_LAYRST TO(_QWERTY)
@@ -70,10 +74,8 @@
 enum custom_keycodes {
     KC_YAY = SAFE_RANGE,
     DRAG_SCROLL,
-    KC_SHRUG,
-    KC_TABLE,
-    KC_TABLE2,
-    KC_DISA,
+    ALT_TAB,
+    SFT_ALT_TAB,
 };
 
 // Left-hand home row mods
@@ -128,42 +130,42 @@ enum custom_keycodes {
     // FAL3 = right1(angled)
     // FAL4 = right2(flat)
 
-    // left, angled
+    // left, flat
     #define FAL1_IN_L0 HSV_CYAN
     #define FAL1_OUT_L0 HSV_BLUE
-    #define FAL1_IN_L1 HSV_MOONLANDER
-    #define FAL1_OUT_L1 HSV_MOONLANDER
-    #define FAL1_IN_L2 HSV_MOONLANDER
-    #define FAL1_OUT_L2 HSV_MOONLANDER
+    #define FAL1_IN_L1 HSV_RED
+    #define FAL1_OUT_L1 HSV_ORANGE
+    #define FAL1_IN_L2 HSV_CORAL
+    #define FAL1_OUT_L2 HSV_GREEN
     #define FAL1_IN_L3 HSV_MOONLANDER
     #define FAL1_OUT_L3 HSV_MOONLANDER
-    // left, flat
-    #define FAL2_IN_L0 HSV_CYAN
-    #define FAL2_OUT_L0 HSV_BLUE
-    #define FAL2_IN_L1 HSV_MOONLANDER
-    #define FAL2_OUT_L1 HSV_MOONLANDER
-    #define FAL2_IN_L2 HSV_MOONLANDER
-    #define FAL2_OUT_L2 HSV_MOONLANDER
+    // left, angled
+    #define FAL2_IN_L0 HSV_GOLDENROD
+    #define FAL2_OUT_L0 HSV_GOLD
+    #define FAL2_IN_L1 HSV_YELLOW
+    #define FAL2_OUT_L1 HSV_GREEN
+    #define FAL2_IN_L2 HSV_BLUE
+    #define FAL2_OUT_L2 HSV_SPRINGGREEN
     #define FAL2_IN_L3 HSV_MOONLANDER
     #define FAL2_OUT_L3 HSV_BLUE
-    // right, angled - full-time layer selector
+    // right, angled
     #define FAL3_IN_L0 HSV_CYAN
-    #define FAL3_OUT_L0 HSV_BLUE
-    #define FAL3_IN_L1 HSV_MOONLANDER
-    #define FAL3_OUT_L1 HSV_MOONLANDER
+    #define FAL3_OUT_L0 HSV_SPRINGGREEN
+    #define FAL3_IN_L1 HSV_SPRINGGREEN
+    #define FAL3_OUT_L1 HSV_CYAN
     #define FAL3_IN_L2 HSV_MOONLANDER
     #define FAL3_OUT_L2 HSV_MOONLANDER
-    #define FAL3_IN_L3 HSV_MOONLANDER
+    #define FAL3_IN_L3 HSV_SPRINGGREEN
     #define FAL3_OUT_L3 HSV_GREEN
     // right, flat
     #define FAL4_IN_L0 HSV_CYAN
     #define FAL4_OUT_L0 HSV_BLUE
-    #define FAL4_IN_L1 HSV_MOONLANDER
-    #define FAL4_OUT_L1 HSV_MOONLANDER
+    #define FAL4_IN_L1 HSV_BLUE
+    #define FAL4_OUT_L1 HSV_PURPLE
     #define FAL4_IN_L2 HSV_MOONLANDER
     #define FAL4_OUT_L2 HSV_MOONLANDER
-    #define FAL4_IN_L3 HSV_MOONLANDER
-    #define FAL4_OUT_L3 HSV_MOONLANDER
+    #define FAL4_IN_L3 HSV_PINK
+    #define FAL4_OUT_L3 HSV_PURPLE
 #endif
 
 // encoder button mapping // uhhh why do we have this again...
