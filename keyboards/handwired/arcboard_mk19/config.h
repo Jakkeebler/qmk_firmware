@@ -103,6 +103,7 @@
     // macro count = 8 // flag: 4
     // falcon1 count = 30?
     // falcon2 count = 30?
+    // dpad = 4
     // screen count = ? ?? // flag: 8
 
     // Total counts are important for the left/right 'set_rgb_range' logic, cuz life is hard.
@@ -110,29 +111,29 @@
     #define RGB_TOT_IND_R 65
 
     #define RGB_KEYS_L_START 0
-    #define RGB_KEYS_L_END 43
-    #define RGB_UF1_INNER_L_START 44
-    #define RGB_UF1_INNER_L_END 49
-    #define RGB_UF1_OUTER_L_START 50
-    #define RGB_UF1_OUTER_L_END 73
-    #define RGB_UF2_INNER_L_START 74
-    #define RGB_UF2_INNER_L_END 79
-    #define RGB_UF2_OUTER_L_START 80
-    #define RGB_UF2_OUTER_L_END 103
-    #define RGB_INDICATOR_L_START 104
-    #define RGB_INDICATOR_L_END 108
-    #define RGB_KEYS_R_START 109
-    #define RGB_KEYS_R_END 152
-    #define RGB_UF1_INNER_R_START 153
-    #define RGB_UF1_INNER_R_END 158
-    #define RGB_UF1_OUTER_R_START 159
-    #define RGB_UF1_OUTER_R_END 182
-    #define RGB_UF2_INNER_R_START 183
-    #define RGB_UF2_INNER_R_END 188
-    #define RGB_UF2_OUTER_R_START 189
-    #define RGB_UF2_OUTER_R_END 212
-    #define RGB_INDICATOR_R_START 213
-    #define RGB_INDICATOR_R_END 217
+    #define RGB_KEYS_L_END 47
+    #define RGB_UF1_INNER_L_START 48
+    #define RGB_UF1_INNER_L_END 53
+    #define RGB_UF1_OUTER_L_START 54
+    #define RGB_UF1_OUTER_L_END 77
+    #define RGB_UF2_INNER_L_START 78
+    #define RGB_UF2_INNER_L_END 83
+    #define RGB_UF2_OUTER_L_START 84
+    #define RGB_UF2_OUTER_L_END 107
+    #define RGB_INDICATOR_L_START 108
+    #define RGB_INDICATOR_L_END 112
+    #define RGB_KEYS_R_START 113
+    #define RGB_KEYS_R_END 160
+    #define RGB_UF1_INNER_R_START 161
+    #define RGB_UF1_INNER_R_END 166
+    #define RGB_UF1_OUTER_R_START 167
+    #define RGB_UF1_OUTER_R_END 190
+    #define RGB_UF2_INNER_R_START 191
+    #define RGB_UF2_INNER_R_END 196
+    #define RGB_UF2_OUTER_R_START 197
+    #define RGB_UF2_OUTER_R_END 220
+    #define RGB_INDICATOR_R_START 221
+    #define RGB_INDICATOR_R_END 225
     /*
     #define RGB_SCREEN_GLOW_START 0
     #define RGB_SCREEN_GLOW_END 0
