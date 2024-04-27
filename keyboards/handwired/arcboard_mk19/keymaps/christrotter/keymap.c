@@ -28,8 +28,10 @@
     #include "rgb_ledmaps.h"
 #endif
 
-bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
-uint16_t alt_tab_timer = 0;     // we will be using them soon.
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+bool is_sup_alt_tab_active = false;
+uint16_t sup_alt_tab_timer = 0;
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
@@ -100,7 +102,7 @@ So we need the pcb to output dpad on row5, macropad on row2&3.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
         KC_ESC, _______, _______, _______, _______, KC_F5,                  KC_MULTILNE, OSM(MOD_LSFT), OSM(MOD_LSFT), OSM(MOD_LSFT), OSM(MOD_LSFT),      KC_MACSHOT,MAGIPLAY,_______,REC_MAXIMIZE, _______, KC_F12,                KC_LEFT, KC_DOWN, KC_RIGHT, KC_UP,_______,
-        KC_TILD,LT(0,KC_1),LT(0,KC_2),LT(0,KC_3),LT(0,KC_4),LT(0,KC_5),     KC_NO, KC_2, ALT_TAB,                                      LT(0,KC_6),LT(0,KC_7),LT(0,KC_8),LT(0,KC_9), KC_0, KC_EQUAL,     KC_NO, LGUI(KC_TILD), KC_2,
+        KC_TILD,LT(0,KC_1),LT(0,KC_2),LT(0,KC_3),LT(0,KC_4),LT(0,KC_5),     KC_NO, KC_2, SUP_ALT_TAB,                                      LT(0,KC_6),LT(0,KC_7),LT(0,KC_8),LT(0,KC_9), KC_0, KC_EQUAL,     KC_NO, LGUI(KC_TILD), KC_2,
         KC_TAB, KC_Q, LT(0,KC_W),HOME_E, LT(0,KC_R),LT(0,KC_T),             MEET_MUTE, MEET_HAND, KC_3, KC_MACSHOT,                           KC_Y, KC_U, LT(0,KC_I),KC_O, KC_P, KC_MINUS,                     REC_PREV_MONITOR, REC_LEFT_HALF, REC_RIGHT_HALF, REC_NEXT_MONITOR,
         KC_LSFT, LT(0,KC_A), HOME_S,  HOME_D,  HOME_F, KC_G,                MEET_VID, SFT_ALT_TAB, ALT_TAB, MAGIPLAY,                             KC_H, HOME_J, HOME_K, HOME_L, KC_QUOT, KC_SCLN,                        REC_MAXIMIZE, REC_66_LEFT, REC_66_RIGHT, KC_8,
         DRAG_SCROLL,LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),                                                         LT(0,KC_N),HOME_M,KC_COMM,KC_DOT,KC_SLASH,KC_ESC,
@@ -217,6 +219,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                   unregister_code(KC_TAB);
                   unregister_code(KC_LSFT);
+                }
+                break;
+            case SUP_ALT_TAB:
+                if (record->event.pressed) {
+                  if (!is_sup_alt_tab_active) {
+                    is_sup_alt_tab_active = true;
+                    register_code(KC_LGUI);
+                  }
+                  sup_alt_tab_timer = timer_read();
+                  register_code(KC_TAB);
+                } else {
+                  unregister_code(KC_TAB);
                 }
                 break;
             case LT(0,KC_YAY):
@@ -375,6 +389,12 @@ void matrix_scan_user(void) {
       unregister_code(KC_LGUI);
       // unregister_code(KC_LSFT);
       is_alt_tab_active = false;
+    }
+  }
+  if (is_sup_alt_tab_active) {
+    if (timer_elapsed(sup_alt_tab_timer) > 50) {
+      unregister_code(KC_LGUI);
+      is_sup_alt_tab_active = false;
     }
   }
 }

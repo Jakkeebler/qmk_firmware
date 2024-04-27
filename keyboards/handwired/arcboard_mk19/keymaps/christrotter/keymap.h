@@ -76,6 +76,7 @@ enum custom_keycodes {
     DRAG_SCROLL,
     ALT_TAB,
     SFT_ALT_TAB,
+    SUP_ALT_TAB,
 };
 
 // Left-hand home row mods
