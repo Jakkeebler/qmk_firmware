@@ -98,13 +98,15 @@ So we need the pcb to output dpad on row5, macropad on row2&3.
         thumb-keys row,                                                             thumb-keys row
     ),
 */
-
+// KC_LEFT, KC_DOWN, KC_RIGHT, KC_UP,_______,
+// KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT,_______,
+// KC_LEFT, _______, KC_DOWN, KC_UP, KC_RIGHT,
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        KC_ESC, _______, _______, _______, _______, KC_F5,                  KC_MULTILNE, OSM(MOD_LSFT), OSM(MOD_LSFT), OSM(MOD_LSFT), OSM(MOD_LSFT),      KC_MACSHOT,MAGIPLAY,_______,REC_MAXIMIZE, _______, KC_F12,                KC_LEFT, KC_DOWN, KC_RIGHT, KC_UP,_______,
+        KC_ESC, _______, _______, _______, _______, KC_F5,                  KC_MULTILNE, OSM(MOD_LSFT), OSM(MOD_LSFT), OSM(MOD_LSFT), OSM(MOD_LSFT),      KC_MACSHOT,MAGIPLAY,_______,REC_MAXIMIZE, _______, KC_F12,                KC_LEFT, KC_UP, KC_DOWN, KC_RIGHT,_______,
         KC_TILD,LT(0,KC_1),LT(0,KC_2),LT(0,KC_3),LT(0,KC_4),LT(0,KC_5),     KC_NO, KC_2, SUP_ALT_TAB,                                      LT(0,KC_6),LT(0,KC_7),LT(0,KC_8),LT(0,KC_9), KC_0, KC_EQUAL,     KC_NO, LGUI(KC_TILD), KC_2,
         KC_TAB, KC_Q, LT(0,KC_W),HOME_E, LT(0,KC_R),LT(0,KC_T),             MEET_MUTE, MEET_HAND, KC_3, KC_MACSHOT,                           KC_Y, KC_U, LT(0,KC_I),KC_O, KC_P, KC_MINUS,                     REC_PREV_MONITOR, REC_LEFT_HALF, REC_RIGHT_HALF, REC_NEXT_MONITOR,
-        KC_LSFT, LT(0,KC_A), HOME_S,  HOME_D,  HOME_F, KC_G,                MEET_VID, SFT_ALT_TAB, ALT_TAB, MAGIPLAY,                             KC_H, HOME_J, HOME_K, HOME_L, KC_QUOT, KC_SCLN,                        REC_MAXIMIZE, REC_66_LEFT, REC_66_RIGHT, KC_8,
+        KC_LSFT, LT(0,KC_A), HOME_S,  HOME_D,  HOME_F, KC_G,                MEET_VID, _______, _______, MAGIPLAY,                             KC_H, HOME_J, HOME_K, HOME_L, KC_QUOT, KC_SCLN,                        REC_MAXIMIZE, REC_66_LEFT, REC_66_RIGHT, KC_8,
         DRAG_SCROLL,LT(0,KC_Z),LT(0,KC_X),LT(0,KC_C),LT(0,KC_V),LT(0,KC_B),                                                         LT(0,KC_N),HOME_M,KC_COMM,KC_DOT,KC_SLASH,KC_ESC,
         KC_BSPC, MO(_NAV), KC_DEL, KC_ESC, KC_LSFT, OSM(MOD_LSFT),                                                                  KC_SPACE,  KC_ENTER,   MO(_SYMBOLS), MO(_NAV), KC_LSFT, KC_MULTILNE
     ),
@@ -144,40 +146,40 @@ const ledmap ledmaps[] = {
 //     [_QWERTY]   = LEDMAP(
 
    [_QWERTY]   = LEDMAP(
-    RED, ___n___, ___n___, ___n___, ___n___, SPRING,    SPRING, ___n___, ___n___, GREEN,    ORANGE, PINK, ___n___, BLUE, ___n___, SPRING,           GREEN, GREEN, GREEN, GREEN,
+    RED, ___n___, ___n___, ___n___, ___n___, SPRING,    ___n___, SPRING, GREEN, ___n___,    ORANGE, PINK, ___n___, BLUE, ___n___, SPRING,           GREEN, GREEN, GREEN, GREEN,
     CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,                                      ___n___, ___n___, ___n___, ___n___, ___n___,    CYAN,
     GOLD, ___n___, ___n___, HRM_CTL, ___n___, ___n___,                                      ___n___, ___n___, ___n___, ___n___, ___n___,    CYAN, 
     GREEN, ___n___, HRM_ALT, HRM_GUI, HRM_SFT, ___n___,                                     ___n___, HRM_SFT, HRM_GUI, HRM_ALT, ___n___, ___n___, 
     ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,                                    ___n___, HRM_CTL, ___n___, ___n___, ___n___,     RED,
     GREEN, GREEN, ESC, DEL, TOG_NAV, RED,                                                   GREEN, GREEN, TOG_NAV, TOG_SYM, ENTER, SPACE,
-    PURPLE, ORANGE, GOLD, PINK, RED, SPRING, ___n___, ORANGE,                               BLUE, PURPLE, PINK, ___n___, RED, ORANGE, YELLOW, GREEN
+    PURPLE, ___n___, ___n___, PINK, RED, SPRING, ___n___, ORANGE,                               BLUE, PURPLE, PINK, ___n___, RED, ORANGE, YELLOW, GREEN
     ),
    [_MOUSE]   = LEDMAP(
-    RED, ORANGE, YELLOW, GREEN, CYAN, BLUE,             SPRING, ___n___, ___n___, GREEN,    RED, ORANGE, YELLOW, GREEN, CYAN, BLUE,                 GREEN, GREEN, GREEN, GREEN,
+    RED, ___n___, ___n___, ___n___, ___n___, SPRING,    ___n___, SPRING, GREEN, ___n___,    ORANGE, PINK, ___n___, BLUE, ___n___, SPRING,           GREEN, GREEN, GREEN, GREEN,
     CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,                                      ___n___, ___n___, ___n___, ___n___, ___n___,    CYAN,
-    GOLD, ___n___, ___n___, ___n___, ___n___, PURPLE,                                       RED, GREEN, ___n___, ___n___, ___n___,    CYAN, 
+    GOLD, ___n___, ___n___, ___n___, ___n___, ___n___,                                       RED, GREEN, ___n___, ___n___, ___n___,    CYAN, 
     GREEN, ___n___, ___n___, ___n___, ___n___, ___n___,                                     ___n___, PINK, PURPLE, BLUE, ___n___, ___n___, 
     ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,                                    ___n___, ___n___, ___n___, ___n___, ___n___,     RED,
     GREEN, GREEN, ESC, DEL, TOG_NAV, RED,                                                   GREEN, GREEN, TOG_NAV, TOG_SYM, ENTER, SPACE,
-    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,                 ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,                 BLUE, PURPLE, PINK, ___n___, RED, ORANGE, YELLOW, GREEN
     ),
    [_SYMBOLS]   = LEDMAP(
-    RED, ORANGE, YELLOW, GREEN, CYAN, BLUE,             SPRING, ___n___, ___n___, GREEN,    RED, ORANGE, YELLOW, GREEN, CYAN, BLUE,                 GREEN, GREEN, GREEN, GREEN,
+    RED, ___n___, ___n___, ___n___, ___n___, SPRING,    ___n___, SPRING, GREEN, ___n___,    ORANGE, PINK, ___n___, BLUE, ___n___, SPRING,           GREEN, GREEN, GREEN, GREEN,
     CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,                                      ORANGE, MAGIPLY, ___n___, ___n___, ___n___, ___n___,
     GOLD, GOLD, GREEN, PURPLE, PURPLE, GREEN,                                               GREEN, CYAN, CYAN, CYAN, ___n___,    ___n___, 
     GREEN, CYAN, YELLOW, MAGENT, MAGENT, BLUE,                                              GREEN, CYAN, CYAN, CYAN, CYAN, ___n___, 
     ORANGE, GOLD, GREEN, PINK, PINK, CYAN,                                                  RED, CYAN, CYAN, CYAN, GOLD, ___n___,
     GREEN, GREEN, ESC, DEL, TOG_NAV, RED,                                                   GREEN, GREEN, TOG_NAV, TOG_SYM, ENTER, SPACE,
-    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,                 ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,                 BLUE, PURPLE, PINK, ___n___, RED, ORANGE, YELLOW, GREEN
     ),
    [_NAV]   = LEDMAP(
-    RED, ORANGE, ___n___, ___n___, ___n___, ___n___,    SPRING, ___n___, ___n___, GREEN,    RED, ORANGE, ___n___, ___n___, ___n___, ___n___,        GREEN, GREEN, GREEN, GREEN,
+    RED, ___n___, ___n___, ___n___, ___n___, SPRING,    ___n___, SPRING, GREEN, ___n___,    RED, ORANGE, ___n___, ___n___, ___n___, ___n___,        GREEN, GREEN, GREEN, GREEN,
     CYAN, ___n___, ___n___, ___n___, ___n___, ___n___,                                      ___n___, ___n___, ___n___, ___n___, ___n___,    ___n___,
-    GOLD, ___n___, ___n___, CYAN, ___n___, ___n___,                                         GREEN,    CYAN,   GREEN,    CYAN,     RED,    ___n___, 
+    GOLD, ___n___, ___n___, CYAN, ___n___, PURPLE,                                         GREEN,    CYAN,   GREEN,    CYAN,     RED,    ___n___, 
     GREEN, BLUE,  SPRING,    PINK,    CYAN, ___n___,                                        YELLOW,   GREEN,   GREEN,   GREEN,  YELLOW, ___n___, 
     ORANGE, ___n___, ___n___, ___n___, ___n___, ___n___,                                    PURPLE,  ORANGE,  ORANGE,  ORANGE,  PURPLE, ___n___,
     GREEN, YELLOW, ESC, DEL, TOG_NAV, RED,                                                  GREEN, GREEN, TOG_NAV, TOG_SYM, ENTER, SPACE,
-    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,                 ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___
+    ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___, ___n___,                 BLUE, PURPLE, PINK, ___n___, RED, ORANGE, YELLOW, GREEN
     ),
 };
 #endif // RGB_MATRIX_LEDMAPS_ENABLED
