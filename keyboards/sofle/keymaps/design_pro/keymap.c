@@ -79,6 +79,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Tap Dance Declaration
 enum {
     DANCE_ESC,
+    DANCE_ENT,
     DANCE_MINS,
     DANCE_EQL,
     DANCE_LBRC,
@@ -186,6 +187,34 @@ void dance_ESC_reset(tap_dance_state_t *state, void *user_data) {
         default: break;
     }
     dance_state[DANCE_ESC] = 0;
+}
+
+// Dance Enter
+void on_dance_ENT(tap_dance_state_t *state, void *user_data) {
+    // Used for Immediate Actions
+}
+
+void dance_ENT_finished(tap_dance_state_t *state, void *user_data) {
+    dance_state[DANCE_ENT] = dance_step(state);
+    switch (dance_state[DANCE_ENT]) {
+        case TD_SINGLE_TAP: register_code16(KC_ENT); break;
+        case TD_SINGLE_HOLD:
+            layer_on(_FUNCPAD);
+            break;
+        default: break;
+    }
+}
+
+void dance_ENT_reset(tap_dance_state_t *state, void *user_data) {
+    wait_ms(10);
+    switch (dance_state[DANCE_ENT]) {
+        case TD_SINGLE_TAP: unregister_code16(KC_ENT); break;
+        case TD_SINGLE_HOLD:
+            layer_off(_FUNCPAD);
+            break;
+        default: break;
+    }
+    dance_state[DANCE_ENT] = 0;
 }
 
 // Dance Minus
@@ -966,8 +995,8 @@ void dance_J_reset(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_TAP: unregister_code16(KC_J); break;
         case TD_SINGLE_HOLD: unregister_code16(KC_RCTL); break;
         case TD_DOUBLE_TAP:
-            unregister_code(KC_LCTL);
             unregister_code(KC_J);
+            unregister_code(KC_LCTL);
             break;
         default: break;
     }
@@ -1079,7 +1108,7 @@ void dance_O_finished(tap_dance_state_t *state, void *user_data) {
             register_code(KC_LCTL);
             register_code(KC_O);
             break;
-        case TD_TRIPLE_TAP:
+        case TD_DOUBLE_HOLD:
             register_code(KC_LCTL);
             register_code(KC_LSFT);
             register_code(KC_O);
@@ -1100,7 +1129,7 @@ void dance_O_reset(tap_dance_state_t *state, void *user_data) {
             unregister_code(KC_O);
             unregister_code(KC_LCTL);
             break;
-        case TD_TRIPLE_TAP:
+        case TD_DOUBLE_HOLD:
             unregister_code(KC_O);
             unregister_code(KC_LSFT);
             unregister_code(KC_LCTL);
@@ -1501,21 +1530,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Qwerty Layer
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   [_QWERTY] = LAYOUT(
-  KC_ESC,   KC_1,           KC_2,          KC_3,                KC_4,             KC_5,                                 KC_6,           KC_7,       KC_8,                   KC_9,    KC_0,          KC_MINS,
-  KC_TAB,   KC_Q,           TD(DANCE_W),   KC_E,                KC_R,             TD(DANCE_T),                          KC_Y,           KC_U,       TD(DANCE_I),            KC_O,    KC_P,          KC_BSPC,
-  KC_F15,   TD(DANCE_A),    TD(DANCE_S),   TD(DANCE_D),         TD(DANCE_F),      KC_G,                                 KC_H,           KC_J,       KC_K,                   KC_L,    KC_SCLN,       KC_QUOT,
-  KC_LSFT,  TD(DANCE_Z),    TD(DANCE_X),   TD(DANCE_C),         TD(DANCE_V),      KC_B,          KC_END,    KC_HOME,    TD(DANCE_N),    KC_M,       KC_COMM,                KC_DOT,  KC_SLSH,       KC_LSFT,
-                            KC_LCTL,       LT(_FUNCPAD, KC_NO), KC_BSPC,          KC_SPC,        KC_ENT,    KC_ENT,     KC_SPC,         KC_BSPC,    LT(_FUNCPAD, KC_NO),    KC_NO
+  KC_ESC,   KC_1,           KC_2,          KC_3,                KC_4,             KC_5,                                               KC_6,           KC_7,       KC_8,                   KC_9,    KC_0,          KC_MINS,
+  KC_TAB,   KC_Q,           TD(DANCE_W),   KC_E,                KC_R,             TD(DANCE_T),                                        KC_Y,           KC_U,       TD(DANCE_I),            KC_O,    KC_P,          KC_BSPC,
+  KC_F15,   TD(DANCE_A),    TD(DANCE_S),   TD(DANCE_D),         TD(DANCE_F),      KC_G,                                               KC_H,           KC_J,       KC_K,                   KC_L,    KC_SCLN,       KC_QUOT,
+  KC_LSFT,  TD(DANCE_Z),    TD(DANCE_X),   TD(DANCE_C),         TD(DANCE_V),      KC_B,          KC_END,           KC_HOME,           TD(DANCE_N),    KC_M,       KC_COMM,                KC_DOT,  KC_SLSH,       KC_LSFT,
+                            KC_LCTL,       OSL(_FUNCPAD), KC_BSPC,          KC_SPC,        TD(DANCE_ENT),    TD(DANCE_ENT),     KC_SPC,         KC_BSPC,    LT(_FUNCPAD, KC_NO),    KC_NO
 ),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Illustrator Layer
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   [_ILSTR] = LAYOUT(
-  TD(DANCE_ESC),   TD(DANCE_1),     TD(DANCE_2),   TD(DANCE_3),    KC_4,             TD(DANCE_5),                         KC_6,          TD(DANCE_7),  TD(DANCE_8),  KC_9,         TD(DANCE_0),  KC_MINS,
-  KC_TAB,          KC_Q,            TD(DANCE_W),   TD(DANCE_E),    KC_R,             TD(DANCE_T),                         TD(DANCE_Y),   KC_U,         TD(DANCE_I),  TD(DANCE_O),  TD(DANCE_P),  KC_BSPC,
-  KC_F15,          TD(DANCE_A),     TD(DANCE_S),   TD(DANCE_D),    TD(DANCE_F),      TD(DANCE_G),                         TD(DANCE_H),   TD(DANCE_J),  TD(DANCE_K),  TD(DANCE_L),  KC_SCLN,      KC_QUOT,
-  KC_LSFT,         TD(DANCE_Z),     TD(DANCE_X),   TD(DANCE_C),    TD(DANCE_V),      TD(DANCE_B),  KC_ARTBRD,   KC_LAYER, TD(DANCE_N),   KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,      KC_LSFT,
-                                            KC_LCTL,   LT(_FUNCPAD, KC_NO), KC_BSPC, KC_SPC, KC_ENT,                      KC_ENT, KC_SPC,        KC_BSPC,      LT(_FUNCPAD, KC_NO), KC_NO
+  TD(DANCE_ESC),   TD(DANCE_1),     TD(DANCE_2),   TD(DANCE_3),    KC_4,             TD(DANCE_5),                                       KC_6,          TD(DANCE_7),  TD(DANCE_8),  KC_9,         TD(DANCE_0),  KC_MINS,
+  KC_TAB,          KC_Q,            TD(DANCE_W),   TD(DANCE_E),    KC_R,             TD(DANCE_T),                                       TD(DANCE_Y),   KC_U,         TD(DANCE_I),  TD(DANCE_O),  TD(DANCE_P),  KC_BSPC,
+  KC_F15,          TD(DANCE_A),     TD(DANCE_S),   TD(DANCE_D),    TD(DANCE_F),      TD(DANCE_G),                                       TD(DANCE_H),   TD(DANCE_J),  TD(DANCE_K),  TD(DANCE_L),  KC_SCLN,      KC_QUOT,
+  KC_LSFT,         TD(DANCE_Z),     TD(DANCE_X),   TD(DANCE_C),    TD(DANCE_V),      TD(DANCE_B),  KC_ARTBRD,          KC_LAYER,        TD(DANCE_N),   KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,      KC_LSFT,
+                                            KC_LCTL,   OSL(_FUNCPAD), KC_BSPC, KC_SPC,       TD(DANCE_ENT),      TD(DANCE_ENT),   KC_SPC,        KC_BSPC,      LT(_FUNCPAD, KC_NO), KC_NO
 ),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Left Hand Layer
@@ -1525,7 +1554,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,          TD(DANCE_Y),     KC_U,          TD(DANCE_I),    TD(DANCE_O),      TD(DANCE_P),                         KC_Y,          KC_U,         TD(DANCE_I),  TD(DANCE_O),  TD(DANCE_P),  KC_BSPC,
   KC_F15,          TD(DANCE_H),     TD(DANCE_J),   TD(DANCE_K),    TD(DANCE_L),      KC_SCLN,                             TD(DANCE_H),   TD(DANCE_J),  TD(DANCE_K),  TD(DANCE_L),  KC_SCLN,      KC_QUOT,
   KC_LSFT,         TD(DANCE_N),     KC_M,          KC_COMM,        KC_DOT,           KC_SLSH,       KC_LAYER,   KC_LAYER, TD(DANCE_N),   KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,      KC_LSFT,
-                                            KC_LCTL,   LT(_FUNCPAD, KC_NO), KC_BSPC, KC_SPC,  KC_ENT,                     KC_ENT,  KC_SPC,        KC_BSPC,      LT(_FUNCPAD, KC_NO), KC_NO
+                                            KC_LCTL,   OSL(_FUNCPAD), KC_BSPC, KC_SPC,  TD(DANCE_ENT),      TD(DANCE_ENT),  KC_SPC,        KC_BSPC,      LT(_FUNCPAD, KC_NO), KC_NO
 ),
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Function Layer
@@ -1738,6 +1767,7 @@ bool encoder_update_user(uint8_t index, bool clockwise)
 
 tap_dance_action_t tap_dance_actions[] = {
         [DANCE_ESC] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_ESC, dance_ESC_finished, dance_ESC_reset),
+        [DANCE_ENT] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_ENT, dance_ENT_finished, dance_ENT_reset),
         [DANCE_MINS] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_MINS, dance_MINS_finished, dance_MINS_reset),
         [DANCE_EQL] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_EQL, dance_EQL_finished, dance_EQL_reset),
         [DANCE_LBRC] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_LBRC, dance_LBRC_finished, dance_LBRC_reset),
