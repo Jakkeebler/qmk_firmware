@@ -2364,25 +2364,27 @@ static void render_lfthand(void) {
 }
 
 
-// static void print_status_logo(void) {
-//     switch (get_highest_layer(layer_state)) {
-//         case _QWERTY:
-//             render_qwerty();
-//             break;
-//         case _ILSTR:
-//             render_illstr();
-//             break;
-//         case _LFTHND:
-//             render_lfthand();
-//             break;
-//         case _FUNCPAD:
-//             render_funct();
-//             break;
-//         default:
-//             render_logo();
-//             break;
-//     }
-// }
+static void print_status_logo(void) {
+    oled_clear();
+
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+            render_qwerty();
+            break;
+        case _ILSTR:
+            render_illstr();
+            break;
+        case _LFTHND:
+            render_lfthand();
+            break;
+        case _FUNCPAD:
+            render_funct();
+            break;
+        default:
+            render_logo();
+            break;
+    }
+}
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
@@ -2393,27 +2395,11 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
+        // print_status_logo();
         print_status_narrow();
     } else {
-        oled_clear();
-
-        switch (get_highest_layer(layer_state)) {
-            case _QWERTY:
-                render_qwerty();
-                break;
-            case _ILSTR:
-                render_illstr();
-                break;
-            case _LFTHND:
-                render_lfthand();
-                break;
-            case _FUNCPAD:
-                render_funct();
-                break;
-            default:
-                render_logo();
-                break;
-        }
+        print_status_logo();
+        // print_status_narrow();
     }
     return false;
 }
