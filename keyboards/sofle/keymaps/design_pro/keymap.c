@@ -2171,8 +2171,6 @@ static void render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-static uint8_t previous_layer = _QWERTY;
-
 static void print_status_narrow(void) {
     // Print current mode
     oled_write_P(PSTR("\n"), false);
@@ -2182,33 +2180,15 @@ static void print_status_narrow(void) {
 
 	//snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state)
 
-
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_ln_P(PSTR("Qwrty"), false);
-            break;
-        case _ILSTR:
-        case _LFTHND:
-            oled_write_ln_P(PSTR("Ilstr"), false);
-            break;
-        case _FUNCPAD:
-            if(previous_layer == _QWERTY) {
-                oled_write_ln_P(PSTR("Qwrty"), false);
-            } else {
-                oled_write_ln_P(PSTR("Ilstr"), false);
-            }
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
-            break;
-    }
     oled_write_P(PSTR("\n\n"), false);
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
+            oled_write_P(PSTR("Qwrty\n"), false);
+            break;
         case _ILSTR:
-            oled_write_P(PSTR("Base\n"), false);
+            oled_write_P(PSTR("Ilstr\n"), false);
             break;
         case _LFTHND:
             oled_write_P(PSTR("Left\n"), false);
@@ -2221,7 +2201,6 @@ static void print_status_narrow(void) {
             break;
     }
 
-    previous_layer = get_highest_layer(layer_state);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
