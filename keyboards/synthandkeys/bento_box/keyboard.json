@@ -21,7 +21,8 @@
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "tapdance": true
     },
     "matrix_pins": {
         "direct": [

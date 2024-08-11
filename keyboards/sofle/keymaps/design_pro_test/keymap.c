@@ -19,6 +19,12 @@
 // For Debugging
 #include "print.h"
 
+
+// Code Parts
+// #include "encoder.h"
+// #include "oled.h"
+// #include "tapdance.h"
+
 #include QMK_KEYBOARD_H
 
 // Layer Declaration
