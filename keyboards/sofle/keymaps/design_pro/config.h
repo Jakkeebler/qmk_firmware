@@ -32,6 +32,6 @@
 #define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding
 
 #define QUICK_TAP_TERM 0
-#define TAPPING_TERM 200
+#define TAPPING_TERM 180
 
 #define ENCODER_DIRECTION_FLIP

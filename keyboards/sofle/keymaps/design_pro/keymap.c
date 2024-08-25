@@ -1688,11 +1688,11 @@ void dance_O_finished(tap_dance_state_t *state, void *user_data) {
             break;
         case TD_DOUBLE_TAP:
             register_code(KC_LCTL);
+            register_code(KC_LSFT);
             register_code(KC_O);
             break;
         case TD_DOUBLE_HOLD:
             register_code(KC_LCTL);
-            register_code(KC_LSFT);
             register_code(KC_O);
             break;
         default: break;
@@ -1709,11 +1709,11 @@ void dance_O_reset(tap_dance_state_t *state, void *user_data) {
             break;
         case TD_DOUBLE_TAP:
             unregister_code(KC_O);
+            unregister_code(KC_LSFT);
             unregister_code(KC_LCTL);
             break;
         case TD_DOUBLE_HOLD:
             unregister_code(KC_O);
-            unregister_code(KC_LSFT);
             unregister_code(KC_LCTL);
             break;
         default: break;
@@ -1996,13 +1996,14 @@ void dance_X_finished(tap_dance_state_t *state, void *user_data) {
     dance_state[DANCE_X] = dance_step(state);
     switch (dance_state[DANCE_X]) {
         case TD_SINGLE_TAP: register_code16(KC_X); break;
+        case TD_SINGLE_HOLD:
+            register_code(KC_LSFT);
+            register_code(KC_X);
+            break;
         case TD_DOUBLE_TAP:
             register_code(KC_LCTL);
             register_code(KC_X);
             break;
-        case TD_DOUBLE_HOLD:
-            register_code(KC_LSFT);
-            register_code(KC_X);
         default: break;
     }
 }
@@ -2011,13 +2012,14 @@ void dance_X_reset(tap_dance_state_t *state, void *user_data) {
     wait_ms(10);
     switch (dance_state[DANCE_X]) {
         case TD_SINGLE_TAP: unregister_code16(KC_X); break;
+        case TD_SINGLE_HOLD:
+            unregister_code(KC_X);
+            unregister_code(KC_LSFT);
+            break;
         case TD_DOUBLE_TAP:
             unregister_code(KC_X);
             unregister_code(KC_LCTL);
             break;
-        case TD_DOUBLE_HOLD:
-            unregister_code(KC_X);
-            unregister_code(KC_LSFT);
         default: break;
     }
     dance_state[DANCE_X] = 0;
