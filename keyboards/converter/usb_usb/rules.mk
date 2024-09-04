@@ -13,6 +13,8 @@ AUDIO_ENABLE = no           # Audio output
 USB_HID_ENABLE = yes
 CUSTOM_MATRIX = yes
 
+LTO_ENABLE = yes
+
 SRC += custom_matrix.cpp
 
 DEFAULT_FOLDER = converter/usb_usb/hasu
